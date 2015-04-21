@@ -1,10 +1,8 @@
 package Interval;
 
-import GUI.UserInterface;
-
 import java.util.ArrayList;
 
-public class Interval {
+public class Interval implements Runnable{
     protected ArrayList<String[]> schedule;
     private String name;
 
@@ -20,9 +18,13 @@ public class Interval {
         String[] position = {time, message};
         schedule.add(position);
     }
-    public void editPosition(int positionNumber, int positionInArray, String change){
-        String[] arrayToEdit = schedule.get(positionNumber);
-        arrayToEdit[positionInArray] = change;
+    public void editPosition(int positionNumber, String time, String message){
+        String[] editedArray = {time,message};
+        schedule.remove(positionNumber);
+        schedule.add(positionNumber,editedArray);
+    }
+    public void removePosition(int positionNumber){
+        schedule.remove(positionNumber);
     }
     public String toString(){
         return this.name;
@@ -35,6 +37,13 @@ public class Interval {
         return list;
     }
     public void lunchInterval(){
+        Thread inter = new Thread(this);
+        inter.start();
+
+    }
+
+    @Override
+    public void run() {
         String[][] temp = new String[schedule.size()][];
         for(int i=0; i<schedule.size();i++){
             temp[i] = schedule.get(i);
@@ -50,27 +59,6 @@ public class Interval {
                 countdown.startCountdown(temp[index][0],temp[index][1]);
                 index++;
             }
-
-
         }
-        countdown.message.setText("koniec");
-    }
-
-
-    public static void main(String[] args){
-        UserInterface userInterface = new UserInterface();
-        Interval interval = new Interval("First");
-
-        //interval.addToSchedule("00:10","start");
-        interval.addToSchedule("00:10","break");
-        interval.addToSchedule("00:10","finish");
-
-        String[] columnNames = {"time", "message"};
-        userInterface.show();
-        userInterface.createSidePanel();
-        userInterface.createInputFields();
-        userInterface.displayInterval(interval);
-
-        //interval.lunchInterval();
     }
 }

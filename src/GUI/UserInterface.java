@@ -59,7 +59,9 @@ public class UserInterface {
         JButton add = new JButton("ADD");
         add.addActionListener(new AddListener());
         JButton edit = new JButton("EDIT");
+        edit.addActionListener(new EditListener());
         JButton delete = new JButton("DEL");
+        delete.addActionListener(new DeleteListener());
         JButton start = new JButton("START");
         start.addActionListener(new StartListener());
 
@@ -108,10 +110,29 @@ public class UserInterface {
     private class StartListener implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
-            //interval.lunchInterval();
+            interval.lunchInterval();
             for(String[] a: interval.getSchedule()){
                 System.out.println(a[0]+","+a[1]);
             }
+        }
+    }
+
+    private class DeleteListener implements ActionListener {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            interval.removePosition(table.getSelectedRow());
+            panel.remove(displayPanel);
+            displayInterval(interval);
+        }
+
+    }
+
+    private class EditListener implements ActionListener {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            interval.editPosition(table.getSelectedRow(),timeField.getText(),messageField.getText());
+            panel.remove(displayPanel);
+            displayInterval(interval);
         }
     }
 }

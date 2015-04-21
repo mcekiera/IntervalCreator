@@ -68,6 +68,7 @@ public class Countdown{
         public void actionPerformed(ActionEvent e) {
             if(timeList[0]==0 && timeList[1]==1){
                 label.setText("");
+                message.setText("END");
                 timer.stop();
             }else if(timeList[1]>0){
                 timeList[1] -= 1;

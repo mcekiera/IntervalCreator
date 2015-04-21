@@ -1,12 +1,16 @@
 package Interval;
 
-import javax.swing.*;
-import java.awt.*;
+import GUI.UserInterface;
+
 import java.util.ArrayList;
 
 public class Interval {
     protected ArrayList<String[]> schedule;
     private String name;
+
+    public ArrayList<String[]> getSchedule() {
+        return schedule;
+    }
 
     public Interval(String name){
         this.name = name;
@@ -54,7 +58,7 @@ public class Interval {
 
 
     public static void main(String[] args){
-        JFrame frame = new JFrame();
+        UserInterface userInterface = new UserInterface();
         Interval interval = new Interval("First");
 
         //interval.addToSchedule("00:10","start");
@@ -62,12 +66,11 @@ public class Interval {
         interval.addToSchedule("00:10","finish");
 
         String[] columnNames = {"time", "message"};
-        JTable table = new JTable(Interval.prepareForTable(interval),columnNames);
+        userInterface.show();
+        userInterface.createSidePanel();
+        userInterface.createInputFields();
+        userInterface.displayInterval(interval);
 
-        interval.lunchInterval();
-
-        frame.getContentPane().add(BorderLayout.CENTER, table);
-        frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-        frame.setVisible(true);
+        //interval.lunchInterval();
     }
 }

@@ -56,7 +56,7 @@ public class IntervalTest {
         countdown.displayTime(2,54);
         assertEquals("02:54",countdown.label.getText());
     }
-
+    //TODO przy 00:00 się wykrzacza :P
 
 
 } 

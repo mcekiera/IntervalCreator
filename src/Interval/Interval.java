@@ -26,6 +26,25 @@ public class Interval implements Runnable{
     public void removePosition(int positionNumber){
         schedule.remove(positionNumber);
     }
+    public void changePosition(int positionNumber, int direction){
+        ArrayList<String[]> temp = new ArrayList<String[]>();
+        for(String[] a:schedule){
+            temp.add(a);
+        }
+        if(direction==-1){
+            schedule.remove(0);
+            schedule.add(temp.get(0));
+        }else if(direction==schedule.size()+1){
+            schedule.remove(schedule.size()-1);
+            schedule.add(0,temp.get(temp.size()-1));
+        }else{
+            temp.remove(positionNumber);
+            temp.add(positionNumber, schedule.get(direction));
+            temp.remove(direction);
+            temp.add(direction,schedule.get(positionNumber));
+            schedule = temp;
+        }
+    }
     public String toString(){
         return this.name;
     }

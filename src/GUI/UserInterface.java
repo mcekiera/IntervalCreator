@@ -24,23 +24,12 @@ public class UserInterface {
         panel.setBackground(Color.WHITE);
         frame.getContentPane().add(BorderLayout.CENTER,panel);
 
-        /*String[] columnNames = {"time", "message"};
-        Interval o1 = new Interval("o1");
-        for(int i = 0; i<10; i++){
-            o1.addToSchedule("12"+i,"go"+i);
-        }
-        JTable table = new JTable(Interval.prepareForTable(o1),columnNames);
-        JScrollPane scrollPane = new JScrollPane(table);
-        panel.add(BorderLayout.CENTER,scrollPane); */
-
-
-
         frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-        frame.setSize(300,300);
+        frame.setSize(400,300);
         frame.setVisible(true);
     }
     public void displayInterval(Interval interval){
-        String[] columnNames = {"Time","Message"};
+        String[] columnNames = {"Time","Comment"};
         this.interval = interval;
         table = new JTable(Interval.prepareForTable(interval),columnNames);
         JScrollPane scrollPane = new JScrollPane(table);
@@ -65,10 +54,20 @@ public class UserInterface {
         JButton start = new JButton("START");
         start.addActionListener(new StartListener());
 
+
+        JButton up = new JButton("^");
+        up.addActionListener(new UpArrowListener());
+        JButton down = new JButton("v");
+        down.addActionListener(new DownArrowListener());
+        JPanel upDown = new JPanel(new GridLayout(2,1));
+        upDown.add(up);
+        upDown.add(down);
+
+
         sidePanel.add(add);
         sidePanel.add(edit);
         sidePanel.add(delete);
-        sidePanel.add(new JPanel());
+        sidePanel.add(upDown);
         sidePanel.add(start);
 
         panel.add(BorderLayout.EAST,sidePanel);
@@ -111,9 +110,6 @@ public class UserInterface {
         @Override
         public void actionPerformed(ActionEvent e) {
             interval.lunchInterval();
-            for(String[] a: interval.getSchedule()){
-                System.out.println(a[0]+","+a[1]);
-            }
         }
     }
 
@@ -124,7 +120,6 @@ public class UserInterface {
             panel.remove(displayPanel);
             displayInterval(interval);
         }
-
     }
 
     private class EditListener implements ActionListener {
@@ -135,4 +130,27 @@ public class UserInterface {
             displayInterval(interval);
         }
     }
+
+    private class UpArrowListener implements ActionListener {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            int index = (table.getSelectedRow()==-1) ? 0 : table.getSelectedRow();
+            interval.changePosition(index,(index-1));
+
+            panel.remove(displayPanel);
+            displayInterval(interval);
+        }
+    }
+
+    private class DownArrowListener implements ActionListener {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            int index = (table.getSelectedRow()==-1) ? table.getRowCount() : table.getSelectedRow();
+            interval.changePosition(index,(index+1));
+
+            panel.remove(displayPanel);
+            displayInterval(interval);
+        }
+    }
+    //todo przy nieprawidłowym formacie wejściowym się wykrzacza
 }

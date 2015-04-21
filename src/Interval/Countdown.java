@@ -66,7 +66,7 @@ public class Countdown{
     private class CountdownListener implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
-            if(timeList[0]==0 && timeList[1]==1){
+            if(timeList[0]==0 && (timeList[1]==1 || timeList[1]==0)){
                 label.setText("");
                 message.setText("END");
                 timer.stop();

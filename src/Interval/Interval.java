@@ -1,7 +1,5 @@
 package Interval;
 
-import GUI.Countdown;
-
 import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
@@ -32,26 +30,44 @@ public class Interval {
         }
         return list;
     }
+    public void lunchInterval(){
+        String[][] temp = new String[schedule.size()][];
+        for(int i=0; i<schedule.size();i++){
+            temp[i] = schedule.get(i);
+        }
+        int index = 0;
+        Countdown countdown = new Countdown();
+        while(index<temp.length){
+            if(index==0){
+                countdown.startCountdown(temp[index][0],temp[index][1]);
+                index++;
+            }
+            if(!countdown.isRunning()){
+                countdown.startCountdown(temp[index][0],temp[index][1]);
+                index++;
+            }
+
+
+        }
+        countdown.message.setText("koniec");
+    }
 
 
     public static void main(String[] args){
         JFrame frame = new JFrame();
         Interval interval = new Interval("First");
 
-        interval.addToSchedule("00:45","start");
-        interval.addToSchedule("00:15","break");
-        interval.addToSchedule("00:45","start");
-        interval.addToSchedule("00:15","break");
-        interval.addToSchedule("00:30","finish");
+        //interval.addToSchedule("00:10","start");
+        interval.addToSchedule("00:10","break");
+        interval.addToSchedule("00:10","finish");
 
         String[] columnNames = {"time", "message"};
         JTable table = new JTable(Interval.prepareForTable(interval),columnNames);
 
-        GUI.Countdown countdown = new Countdown("00:10","RUN Bitch");
+        interval.lunchInterval();
 
         frame.getContentPane().add(BorderLayout.CENTER, table);
         frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         frame.setVisible(true);
     }
-
 }

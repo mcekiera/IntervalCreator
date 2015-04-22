@@ -4,17 +4,13 @@ import Interval.Interval;
 
 public class Main {
     public static void main(String[] args){
-        UserInterface userInterface = new UserInterface();
+        SingleIntervalView singleIntervalView = new SingleIntervalView();
         Interval interval = new Interval("First");
 
-        interval.addToSchedule("00:02","start");
-        interval.addToSchedule("00:02","break");
-        interval.addToSchedule("00:02","finish");
-
-        userInterface.show();
-        userInterface.createSidePanel();
-        userInterface.createInputFields();
-        userInterface.displayInterval(interval);
+        singleIntervalView.show();
+        singleIntervalView.createSidePanel();
+        singleIntervalView.createInputFields();
+        singleIntervalView.displayInterval(interval);
 
         //interval.lunchInterval();
     }

@@ -9,7 +9,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.text.ParseException;
 
-public class UserInterface {
+public class SingleIntervalView {
     private JPanel panel;
     private Interval interval;
     protected JFormattedTextField timeField;

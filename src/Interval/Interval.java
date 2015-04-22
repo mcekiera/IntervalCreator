@@ -45,13 +45,26 @@ public class Interval implements Runnable{
             schedule = temp;
         }
     }
+    //todo
+    public String sumUpTime(){
+        int min = 0;
+        int sec = 0;
+        for(String[] a: schedule){
+            String[] temp = a[0].split(":");
+            min += Integer.valueOf(temp[0]);
+            sec += Integer.valueOf(temp[1]);
+        }
+        min += sec/60;
+        sec = sec%60;
+        return min+":"+sec;
+    }
     public String toString(){
         return this.name;
     }
-    public static Object[][] prepareForTable(Interval interval){
-        String[][] list = new String[interval.schedule.size()][];
-        for(int i = 0; i<interval.schedule.size(); i++){
-            list[i] = interval.schedule.get(i);
+    public Object[][] prepareForTable(){
+        String[][] list = new String[this.schedule.size()][];
+        for(int i = 0; i<this.schedule.size(); i++){
+            list[i] = this.schedule.get(i);
         }
         return list;
     }

@@ -11,7 +11,6 @@ public class Main {
         interval.addToSchedule("00:02","break");
         interval.addToSchedule("00:02","finish");
 
-        String[] columnNames = {"time", "message"};
         userInterface.show();
         userInterface.createSidePanel();
         userInterface.createInputFields();

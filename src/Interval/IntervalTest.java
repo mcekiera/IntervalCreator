@@ -32,7 +32,7 @@ public class IntervalTest {
     public void testPrepareForTable(){
         String[][] array = new String[1][];
         array[0] = new String[] {"1","2"};
-        Assert.assertArrayEquals(array, Interval.prepareForTable(interval));
+        Assert.assertArrayEquals(array, interval.prepareForTable());
     }
     @Test
     public void testEditPosition(){

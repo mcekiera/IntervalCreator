@@ -12,10 +12,11 @@ import java.text.ParseException;
 public class UserInterface {
     private JPanel panel;
     private Interval interval;
-    JFormattedTextField timeField;
+    protected JFormattedTextField timeField;
     JTextField messageField;
     JTable table;
     JPanel displayPanel;
+    protected JButton add;
 
     public void show(){
         JFrame frame = new JFrame("Interval Creator");
@@ -31,7 +32,7 @@ public class UserInterface {
     public void displayInterval(Interval interval){
         String[] columnNames = {"Time","Comment"};
         this.interval = interval;
-        table = new JTable(Interval.prepareForTable(interval),columnNames);
+        table = new JTable(interval.prepareForTable(),columnNames);
         JScrollPane scrollPane = new JScrollPane(table);
         scrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);
         scrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED);
@@ -45,7 +46,7 @@ public class UserInterface {
     public void createSidePanel(){
         JPanel sidePanel = new JPanel(new GridLayout(5,1,2,2));
 
-        JButton add = new JButton("ADD");
+        add = new JButton("ADD");
         add.addActionListener(new AddListener());
         JButton edit = new JButton("EDIT");
         edit.addActionListener(new EditListener());
@@ -53,16 +54,14 @@ public class UserInterface {
         delete.addActionListener(new DeleteListener());
         JButton start = new JButton("START");
         start.addActionListener(new StartListener());
-
-
         JButton up = new JButton("^");
         up.addActionListener(new UpArrowListener());
         JButton down = new JButton("v");
         down.addActionListener(new DownArrowListener());
         JPanel upDown = new JPanel(new GridLayout(2,1));
+
         upDown.add(up);
         upDown.add(down);
-
 
         sidePanel.add(add);
         sidePanel.add(edit);
@@ -91,12 +90,16 @@ public class UserInterface {
         MaskFormatter formatter = null;
         try{
             formatter = new MaskFormatter(s);
+            formatter.setPlaceholderCharacter('0');
         }catch (ParseException ex){
             ex.printStackTrace();
         }
         return formatter;
     }
-
+    public void refreshTable(){
+        panel.remove(displayPanel);
+        displayInterval(interval);
+    }
     private class AddListener implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
@@ -116,18 +119,20 @@ public class UserInterface {
     private class DeleteListener implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
-            interval.removePosition(table.getSelectedRow());
-            panel.remove(displayPanel);
-            displayInterval(interval);
+            if(table.getSelectedRow()!=-1){
+                interval.removePosition(table.getSelectedRow());
+                refreshTable();
+            }
         }
     }
 
     private class EditListener implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
-            interval.editPosition(table.getSelectedRow(),timeField.getText(),messageField.getText());
-            panel.remove(displayPanel);
-            displayInterval(interval);
+            if(table.getSelectedRow()!=-1){
+                interval.editPosition(table.getSelectedRow(),timeField.getText(),messageField.getText());
+                refreshTable();
+            }
         }
     }
 
@@ -136,9 +141,7 @@ public class UserInterface {
         public void actionPerformed(ActionEvent e) {
             int index = (table.getSelectedRow()==-1) ? 0 : table.getSelectedRow();
             interval.changePosition(index,(index-1));
-
-            panel.remove(displayPanel);
-            displayInterval(interval);
+            refreshTable();
         }
     }
 
@@ -147,10 +150,7 @@ public class UserInterface {
         public void actionPerformed(ActionEvent e) {
             int index = (table.getSelectedRow()==-1) ? table.getRowCount() : table.getSelectedRow();
             interval.changePosition(index,(index+1));
-
-            panel.remove(displayPanel);
-            displayInterval(interval);
+            refreshTable();
         }
     }
-    //todo przy nieprawidłowym formacie wejściowym się wykrzacza
 }

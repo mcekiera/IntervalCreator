@@ -1,57 +1,37 @@
 package Interval;
 
-import javax.swing.*;
-import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-
 public class Countdown{
-    JDialog dialog;
-    JPanel panel;
-    Timer timer;
-    public JLabel label;
-    protected JLabel message;
-    int[] timeList;
-    final Rectangle MAX = GraphicsEnvironment.getLocalGraphicsEnvironment().getMaximumWindowBounds();
-    final Rectangle MIN = new Rectangle(100,100,400,400);
-    Color color;
+    String message;
+    int minutes;
+    int seconds;
 
-
-    public Countdown(){
-        dialog = new JDialog();
-        dialog.setUndecorated(false);
-        dialog.setBounds(MAX);
-        dialog.setAlwaysOnTop(true);
-        label = new JLabel();
-        label.setFont(new Font("Arial Black", Font.BOLD, 100));
-        label.setHorizontalAlignment(SwingConstants.CENTER);
-        label.setBackground(Color.RED);
-        panel = new JPanel(new GridLayout(2,1));
-        panel.add(label);
-        message = new JLabel();
-        message.setFont(new Font("Arial Black", Font.BOLD, 100));
-        panel.add(message);
-        message.setHorizontalAlignment(SwingConstants.CENTER);
-
-        panel.setBackground(Color.WHITE);
-        dialog.add(panel);
-        dialog.setVisible(true);
-    }
-    public void displayTime(int min, int sec){
-        String minute = String.format("%02d",min);
-        String second = (String.format("%02d",sec));
-        label.setText(minute+":"+second);
+    public Countdown(String timeToCount, String displayedMessage){
+        message = displayedMessage;
+        splitStringIntoInt(timeToCount);
     }
 
-    public void startCountdown(String time, String message){
-        timeList = convertTimeToInt(time.split(":"));
-        this.message.setText(message);
-        label.setText(time);
-        timer = new Timer(1000,new CountdownListener());
-        timer.setRepeats(true);
-        timer.start();
-
+    private void splitStringIntoInt(String str){
+        String[] minAndSec = str.split(":");
+        minutes = Integer.parseInt(minAndSec[0]);
+        seconds = Integer.parseInt(minAndSec[1]);
     }
+
+    public String toReadableString(){
+        return String.format("%02d:%02d", minutes, seconds);
+    }
+
+    public String getMessage(){
+        return message;
+    }
+
+    public boolean isCloseToEnd(){
+        return minutes < 1 && seconds <= 5;
+    }
+
+    public boolean isFinished(){
+        return minutes < 1 && seconds <1;
+    }
+
     public int[] convertTimeToInt(String[] time){
         int[] converted = new int[time.length];
         for(int i = 0; i<time.length; i++){
@@ -59,25 +39,15 @@ public class Countdown{
         }
         return converted;
     }
-    public boolean isRunning(){
-        return timer.isRunning();
-    }
 
-    private class CountdownListener implements ActionListener {
-        @Override
-        public void actionPerformed(ActionEvent e) {
-            if(timeList[0]==0 && (timeList[1]==1 || timeList[1]==0)){
-                label.setText("");
-                message.setText("END");
-                timer.stop();
-            }else if(timeList[1]>0){
-                timeList[1] -= 1;
-                displayTime(timeList[0],timeList[1]);
-            }else if(timeList[1]==0){
-                timeList[1]=59;
-                timeList[0] -= 1;
-                displayTime(timeList[0],timeList[1]);
-            }
+    public Countdown decrement(){
+        if(seconds > 0){
+            seconds--;
         }
+        else{
+            seconds = 59;
+            minutes --;
+        }
+        return this;
     }
 }

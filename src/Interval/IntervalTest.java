@@ -17,7 +17,6 @@ public class IntervalTest {
     public void before() throws Exception {
         interval = new Interval("int");
         interval.addToSchedule("1","2");
-        countdown = new Countdown();
     }
 
     @After
@@ -48,15 +47,20 @@ public class IntervalTest {
         Assert.assertArrayEquals(ints2,countdown.convertTimeToInt(nums2));
     }
     @Test
-    public void testDisplayTime(){
-        countdown.displayTime(2,5);
-        assertEquals("02:05",countdown.label.getText());
-        countdown.displayTime(22,5);
-        assertEquals("22:05",countdown.label.getText());
-        countdown.displayTime(2,54);
-        assertEquals("02:54",countdown.label.getText());
+    public void testSumUpTime(){
+        interval.schedule.removeAll(interval.schedule);
+        assertEquals("00:00",interval.sumUpTime());
+        interval.addToSchedule("00:01","one");
+        interval.addToSchedule("00:01","one");
+        interval.addToSchedule("00:01","one");
+        interval.addToSchedule("00:01","one");
+        assertEquals("00:04",interval.sumUpTime());
+        interval.addToSchedule("01:01","one");
+        interval.addToSchedule("00:59","one");
+        interval.addToSchedule("01:20","one");
+        interval.addToSchedule("00:01","one");
+        assertEquals("03:25",interval.sumUpTime());
     }
-    //TODO przy 00:00 się wykrzacza :P
 
 
 } 

@@ -1,5 +1,7 @@
 package Interval;
 
+import GUI.CountdownFrame;
+
 import java.util.ArrayList;
 
 public class Interval implements Runnable{
@@ -45,10 +47,10 @@ public class Interval implements Runnable{
             schedule = temp;
         }
     }
-    //todo
     public String sumUpTime(){
         int min = 0;
         int sec = 0;
+        if(schedule.isEmpty()) return "00:00";
         for(String[] a: schedule){
             String[] temp = a[0].split(":");
             min += Integer.valueOf(temp[0]);
@@ -56,7 +58,11 @@ public class Interval implements Runnable{
         }
         min += sec/60;
         sec = sec%60;
-        return min+":"+sec;
+
+        String minStr = (min<10)? "0"+min : String.valueOf(min);
+        String secStr = (sec<10)? "0"+sec : String.valueOf(sec);
+
+        return minStr+":"+secStr;
     }
     public String toString(){
         return this.name;
@@ -69,9 +75,7 @@ public class Interval implements Runnable{
         return list;
     }
     public void lunchInterval(){
-        Thread inter = new Thread(this);
-        inter.start();
-
+        new Thread(this).start();
     }
 
     @Override
@@ -81,14 +85,11 @@ public class Interval implements Runnable{
             temp[i] = schedule.get(i);
         }
         int index = 0;
-        Countdown countdown = new Countdown();
+        CountdownFrame countdownFrame = new CountdownFrame(new Countdown(temp[index][0],temp[index][1]));
+        index++;
         while(index<temp.length){
-            if(index==0){
-                countdown.startCountdown(temp[index][0],temp[index][1]);
-                index++;
-            }
-            if(!countdown.isRunning()){
-                countdown.startCountdown(temp[index][0],temp[index][1]);
+            if(!countdownFrame.isBusy()){
+                countdownFrame = new CountdownFrame(new Countdown(temp[index][0],temp[index][1]));
                 index++;
             }
         }

@@ -32,21 +32,15 @@ public class Countdown{
         return minutes < 1 && seconds <1;
     }
 
-    public int[] convertTimeToInt(String[] time){
-        int[] converted = new int[time.length];
-        for(int i = 0; i<time.length; i++){
-            converted[i] = Integer.valueOf(time[i]);
-        }
-        return converted;
-    }
-
     public Countdown decrement(){
-        if(seconds > 0){
-            seconds--;
-        }
-        else{
-            seconds = 59;
-            minutes --;
+        if(!(seconds == 0 && minutes == 0)){
+            if(seconds > 0){
+                seconds--;
+            }
+            else{
+                seconds = 59;
+                minutes --;
+            }
         }
         return this;
     }

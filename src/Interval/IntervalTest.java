@@ -34,19 +34,6 @@ public class IntervalTest {
         Assert.assertArrayEquals(array, interval.prepareForTable());
     }
     @Test
-    public void testEditPosition(){
-
-    }
-    @Test
-    public void testConvertTimeToInt(){
-        String[] nums = {"23","02"};
-        int[] ints = {23,2};
-        Assert.assertArrayEquals(ints,countdown.convertTimeToInt(nums));
-        String[] nums2 = {"05","56"};
-        int[] ints2 = {5,56};
-        Assert.assertArrayEquals(ints2,countdown.convertTimeToInt(nums2));
-    }
-    @Test
     public void testSumUpTime(){
         interval.schedule.removeAll(interval.schedule);
         assertEquals("00:00",interval.sumUpTime());

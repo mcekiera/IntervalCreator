@@ -49,8 +49,9 @@ public class CountdownFrame extends JFrame{
         return panel;
     }
     private void startTimer(){
-        count.setText( countdown.toReadableString()); // extract method
+        count.setText( countdown.toReadableString());
         message.setText( countdown.getMessage() );
+        count.setForeground( countdown.isCloseToEnd() ? Color.RED : Color.BLACK );
         timer = new Timer( 1000, new TimerListener() );
         timer.setRepeats( true );
         timer.start();
@@ -62,8 +63,8 @@ public class CountdownFrame extends JFrame{
         @Override
         public void actionPerformed( ActionEvent e )
         {
-            count.setForeground( countdown.isCloseToEnd() ? Color.RED : Color.BLACK );
             countdown.decrement();
+            count.setForeground( countdown.isCloseToEnd() ? Color.RED : Color.BLACK );
             if( countdown.isFinished() ){
                 count.setText( "" );
                 message.setText( "END" );

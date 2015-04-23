@@ -1,5 +1,6 @@
-package GUI;
+package Test;
 
+import GUI.SingleIntervalView;
 import Interval.Interval;
 import org.junit.Before;
 import org.junit.Test;
@@ -18,12 +19,12 @@ public class SingleIntervalViewTest {
     }
     @Test
     public void testTimeField(){
-        singleIntervalView.timeField.setText("4");
-        singleIntervalView.add.doClick();
+        singleIntervalView.setTimeField("4");
+        singleIntervalView.getAdd().doClick();
         String[] test = {"40:00",""};
         org.junit.Assert.assertArrayEquals(test,interval.getSchedule().get(0));
-        singleIntervalView.timeField.setText("0:4");
-        singleIntervalView.add.doClick();
+        singleIntervalView.setTimeField("0:4");
+        singleIntervalView.getAdd().doClick();
         String[] test2 = {"40:00",""};
         org.junit.Assert.assertArrayEquals(test2,interval.getSchedule().get(0));
     }

@@ -12,11 +12,11 @@ import java.text.ParseException;
 public class SingleIntervalView {
     private JPanel panel;
     private Interval interval;
-    protected JFormattedTextField timeField;
-    JTextField messageField;
-    JTable table;
-    JPanel displayPanel;
-    protected JButton add;
+    private JFormattedTextField timeField;
+    private JTextField messageField;
+    private JTable table;
+    private JPanel displayPanel;
+    private JButton add;
 
     public void show(){
         JFrame frame = new JFrame("Interval Creator");
@@ -29,6 +29,14 @@ public class SingleIntervalView {
         frame.setSize(400,300);
         frame.setVisible(true);
     }
+
+    public JButton getAdd() {
+        return add;
+    }
+    public void setTimeField(String text) {
+        timeField.setText(text);
+    }
+
     public void displayInterval(Interval interval){
         String[] columnNames = {"Time","Comment"};
         this.interval = interval;
@@ -100,7 +108,7 @@ public class SingleIntervalView {
         panel.remove(displayPanel);
         displayInterval(interval);
     }
-    private class AddListener implements ActionListener {
+    public class AddListener implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
             interval.addToSchedule(timeField.getText(),messageField.getText());

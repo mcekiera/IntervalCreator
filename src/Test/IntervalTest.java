@@ -1,5 +1,7 @@
-package Interval;
+package Test;
 
+import Interval.Interval;
+import Interval.Countdown;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
@@ -35,7 +37,7 @@ public class IntervalTest {
     }
     @Test
     public void testSumUpTime(){
-        interval.schedule.removeAll(interval.schedule);
+        interval.getSchedule().removeAll(interval.getSchedule());
         assertEquals("00:00",interval.sumUpTime());
         interval.addToSchedule("00:01","one");
         interval.addToSchedule("00:01","one");

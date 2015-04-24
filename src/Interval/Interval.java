@@ -85,11 +85,12 @@ public class Interval implements Runnable{
             temp[i] = schedule.get(i);
         }
         int index = 0;
-        CountdownFrame countdownFrame = new CountdownFrame(new Countdown(temp[index][0],temp[index][1]));
+        Countdown sumSetTime = new Countdown(sumUpTime(),"END");
+        CountdownFrame countdownFrame = new CountdownFrame(new Countdown(temp[index][0],temp[index][1]),sumSetTime);
         index++;
         while(index<temp.length){
             if(!countdownFrame.isBusy()){
-                countdownFrame = new CountdownFrame(new Countdown(temp[index][0],temp[index][1]));
+                countdownFrame = new CountdownFrame(new Countdown(temp[index][0],temp[index][1]),sumSetTime);
                 index++;
             }
         }

@@ -17,15 +17,6 @@ public class CountdownTest
         assertEquals( "10:15", new Countdown( "10:15", null ).toReadableString() );
     }
 
-    public void parser_invalid()
-    {
-        // TODO
-        // new Countdown( "", null ));
-        // new Countdown( "0", null ));
-        // new Countdown( "0:0:0", null ));
-        // new Countdown( "0:70", null ));
-    }
-
     @Test
     public void isFinished()
     {

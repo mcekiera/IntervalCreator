@@ -7,13 +7,16 @@ import javax.swing.text.MaskFormatter;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.text.ParseException;
 
 public class SetView {
-    private JPanel panel;
+
     private Set set;
     private JFormattedTextField timeField;
     private JTextField messageField;
+    private JTextField nameField;
     private JTable table;
     private UserInterface userInterface;
 
@@ -21,22 +24,24 @@ public class SetView {
     public SetView(UserInterface container, Set newSet){
         set = newSet;
         userInterface = container;
-        panel = new JPanel(new BorderLayout());
     }
-    public JPanel getSetView(){
-        panel.add(BorderLayout.CENTER, displayInterval());
-        panel.add(BorderLayout.EAST, createSidePanel());
-        return panel;
+    public JPanel getView(){
+        JPanel newPanel = new JPanel(new BorderLayout());
+        newPanel.add(BorderLayout.CENTER, displayInterval());
+        newPanel.add(BorderLayout.EAST, createSidePanel());
+        return newPanel;
     }
 
     public JPanel displayInterval(){
-        String[] columnNames = {"Time","Comment"};
+        String[] columnNames = {"Time","Message"};
         table = new JTable(set.prepareForTable(),columnNames){
             @Override
             public boolean isCellEditable(int row, int column){
                 return false;
             }
         };
+        table.getColumnModel().getColumn(0).setMaxWidth(35);
+
 
         JScrollPane scrollPane = new JScrollPane(table);
         scrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);
@@ -82,15 +87,33 @@ public class SetView {
     }
 
     public JPanel createInputFields(){
-        JPanel inputPanel = new JPanel();
+        JPanel inputPanel = new JPanel(new GridLayout(2,1));
+
+        nameField = new JTextField(10);
+        JLabel setName = new JLabel("Set name: ");
+        JPanel namePanel = new JPanel();
+        namePanel.setLayout(new BoxLayout(namePanel, BoxLayout.X_AXIS));
+        namePanel.add(setName);
+        namePanel.add(nameField);
 
         timeField = new JFormattedTextField(createFormatter("##:##"));
         timeField.setColumns(3);
         timeField.setText("0000");
-        messageField = new JTextField(15);
+        messageField = new JTextField("Message",20);
+        messageField.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                super.mouseClicked(e);
+                messageField.setText("");
+            }
+        });
 
-        inputPanel.add(timeField);
-        inputPanel.add(messageField);
+        JPanel fieldPanel = new JPanel();
+        fieldPanel.setLayout(new BoxLayout(fieldPanel,BoxLayout.X_AXIS));
+        inputPanel.add(namePanel);
+        fieldPanel.add(timeField);
+        fieldPanel.add(messageField);
+        inputPanel.add(fieldPanel);
 
         return inputPanel;
     }
@@ -106,8 +129,7 @@ public class SetView {
         return formatter;
     }
     public void refreshTable(){
-        getSetView();
-        panel.revalidate();
+        userInterface.installPanel(getView());
 
     }
     public class AddListener implements ActionListener {
@@ -116,7 +138,6 @@ public class SetView {
             System.out.println(timeField.getText()+","+messageField.getText());
             set.addToSchedule(timeField.getText(),messageField.getText());
             refreshTable();
-
         }
     }
 
@@ -168,8 +189,10 @@ public class SetView {
     private class OKListener implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
+            set.setName(nameField.getText());
             userInterface.getLibrary().add(set);
-            userInterface.installPanel();
+            userInterface.installPanel(userInterface.getView());
+
 
         }
     }

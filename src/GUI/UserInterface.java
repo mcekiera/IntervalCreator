@@ -23,15 +23,14 @@ public class UserInterface{
     public void show(){
         frame = new JFrame("Interval Creator");
 
-        mainPanel = mainView();
+        mainPanel = getView();
         frame.getContentPane().add(BorderLayout.CENTER,mainPanel);
 
         frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         frame.setSize(400,300);
         frame.setVisible(true);
-        mainView();
     }
-    public JPanel mainView(){
+    public JPanel getView(){
         JPanel panel = new JPanel(new BorderLayout());
         panel.add(BorderLayout.CENTER, createTable());
         panel.add(BorderLayout.EAST,createButtons());
@@ -74,14 +73,7 @@ public class UserInterface{
         scrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED);
         return scrollPane;
     }
-    public void installPanel(){
-        frame.setVisible(false);
-        frame.remove(mainPanel);
-        mainPanel = mainView();
-        frame.add(mainPanel);
-        frame.revalidate();
-        frame.setVisible(true);
-    }
+
     public void installPanel(JPanel panel){
         frame.setVisible(false);
         frame.remove(mainPanel);
@@ -96,7 +88,7 @@ public class UserInterface{
         @Override
         public void actionPerformed(ActionEvent e){
             SetView setView = new SetView(UserInterface.this, new Set());
-            installPanel(setView.getSetView());
+            installPanel(setView.getView());
         }
     }
 }

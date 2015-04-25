@@ -95,6 +95,8 @@ public class CountdownFrame extends WindowAdapter{
             intervalTime.setForeground(ofInterval.isCloseToEnd() ? Color.RED : Color.BLACK);
             if( ofInterval.isFinished() ){
                 timer.stop();
+                frame.setVisible(false);
+                frame.dispose();
             }
             if( ofSet.isFinished()){
                 setTime.setText("00:00");

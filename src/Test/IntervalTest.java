@@ -1,54 +1,45 @@
 package Test;
 
-import Interval.Interval;
-import Interval.Countdown;
-import org.junit.After;
+import Interval.Set;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
 import static junit.framework.Assert.assertEquals;
 
-
-
 public class IntervalTest {
-    Interval interval;
-    Countdown countdown;
+    Set set;
 
     @Before
     public void before() throws Exception {
-        interval = new Interval("int");
-        interval.addToSchedule("1","2");
-    }
-
-    @After
-    public void after() throws Exception {
+        set = new Set("int");
+        set.addToSchedule("1","2");
     }
 
     @Test
     public void testToString(){
-        assertEquals("int",interval.toString());
+        assertEquals("int", set.toString());
     }
     @Test
     public void testPrepareForTable(){
         String[][] array = new String[1][];
         array[0] = new String[] {"1","2"};
-        Assert.assertArrayEquals(array, interval.prepareForTable());
+        Assert.assertArrayEquals(array, set.prepareForTable());
     }
     @Test
     public void testSumUpTime(){
-        interval.getSchedule().removeAll(interval.getSchedule());
-        assertEquals("00:00",interval.sumUpTime());
-        interval.addToSchedule("00:01","one");
-        interval.addToSchedule("00:01","one");
-        interval.addToSchedule("00:01","one");
-        interval.addToSchedule("00:01","one");
-        assertEquals("00:04",interval.sumUpTime());
-        interval.addToSchedule("01:01","one");
-        interval.addToSchedule("00:59","one");
-        interval.addToSchedule("01:20","one");
-        interval.addToSchedule("00:01","one");
-        assertEquals("03:25",interval.sumUpTime());
+        set.getSchedule().removeAll(set.getSchedule());
+        assertEquals("00:00", set.sumUpTime());
+        set.addToSchedule("00:01","one");
+        set.addToSchedule("00:01","one");
+        set.addToSchedule("00:01","one");
+        set.addToSchedule("00:01","one");
+        assertEquals("00:04", set.sumUpTime());
+        set.addToSchedule("01:01","one");
+        set.addToSchedule("00:59","one");
+        set.addToSchedule("01:20","one");
+        set.addToSchedule("00:01","one");
+        assertEquals("03:25", set.sumUpTime());
     }
 
 

@@ -8,18 +8,15 @@ import static junit.framework.Assert.assertEquals;
 import static junit.framework.Assert.assertFalse;
 import static junit.framework.Assert.assertTrue;
 
-public class CountdownTest
-{
+public class CountdownTest{
     @Test
-    public void parser_valid()
-    {
+    public void parser_valid(){
         Assert.assertEquals("00:00", new Countdown("0:00", null).toReadableString());
         assertEquals( "10:15", new Countdown( "10:15", null ).toReadableString() );
     }
 
     @Test
-    public void isFinished()
-    {
+    public void isFinished(){
         assertTrue( new Countdown( "0:00", null ).isFinished() );
         assertFalse( new Countdown( "0:01", null ).isFinished() );
         assertFalse( new Countdown( "1:00", null ).isFinished() );
@@ -27,8 +24,7 @@ public class CountdownTest
     }
 
     @Test
-    public void isCloseToEnd()
-    {
+    public void isCloseToEnd(){
         assertTrue( new Countdown( "0:00", null ).isCloseToEnd() );
         assertTrue( new Countdown( "0:01", null ).isCloseToEnd() );
         assertTrue( new Countdown( "0:05", null ).isCloseToEnd() );
@@ -38,8 +34,7 @@ public class CountdownTest
     }
 
     @Test
-    public void decrement()
-    {
+    public void decrement(){
         assertEquals( "00:00",  new Countdown( "0:00", null ).decrement().toReadableString() );
         assertEquals( "00:00",  new Countdown( "0:01", null ).decrement().toReadableString() );
         assertEquals( "00:04",  new Countdown( "0:05", null ).decrement().toReadableString() );

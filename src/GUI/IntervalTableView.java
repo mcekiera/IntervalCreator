@@ -6,7 +6,7 @@ import java.awt.*;
 public class IntervalTableView {
     JPanel panel;
     public void show(){
-        JFrame frame = new JFrame("Interval Creator");
+        JFrame frame = new JFrame("Set Creator");
         panel = new JPanel(new BorderLayout());
         panel.setSize(300,300);
         panel.setBackground(Color.WHITE);

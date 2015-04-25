@@ -1,9 +1,9 @@
 package Interval;
 
 public class Countdown{
-    String message;
-    int minutes;
-    int seconds;
+    private String message;
+    private int minutes;
+    private int seconds;
 
     public Countdown(String timeToCount, String displayedMessage){
         message = displayedMessage;

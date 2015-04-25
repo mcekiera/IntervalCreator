@@ -11,18 +11,18 @@ import java.awt.event.MouseEvent;
 
 public class CountdownFrame extends JFrame{
     private Timer timer;
-    private JLabel count;
-    private JLabel countSet;
+    private JLabel intervalTime;
+    private JLabel setTime;
     private JLabel message;
-    private Countdown countdown;
-    private Countdown setCountdown;
+    private Countdown ofInterval;
+    private Countdown ofSet;
 
-    public CountdownFrame(Countdown countdown, Countdown timeRest){
-        this.countdown = countdown;
-        setCountdown = timeRest;
-        build();
+    public CountdownFrame(Countdown ofInterval, Countdown ofSet){
+        this.ofInterval = ofInterval;
+        this.ofSet = ofSet;
+        display();
     }
-    public void build(){
+    public void display(){
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
         setExtendedState(MAXIMIZED_BOTH);
@@ -41,34 +41,39 @@ public class CountdownFrame extends JFrame{
         setVisible(true);
     }
     private JPanel initText(){
-        count = new JLabel();
-        count.setFont( new Font( "Arial Black", Font.BOLD, 300 ) );
-        count.setHorizontalAlignment( SwingConstants.CENTER );
-        count.setBackground( Color.RED );
-        countSet = new JLabel();
-        countSet.setFont( new Font( "Arial Black", Font.BOLD, 50 ) );
-        countSet.setHorizontalAlignment(SwingConstants.CENTER);
-        message = new JLabel();
-        message.setFont( new Font( "Arial Black", Font.BOLD, 100 ) );
         JPanel panel = new JPanel( new GridLayout( 2, 1 ) );
         JPanel innerPanel = new JPanel(new GridLayout(2,1));
-        panel.add( count );
-        innerPanel.add(message);
-        if(setCountdown!=null) innerPanel.add( countSet );
-        panel.add( innerPanel );
+        innerPanel.setBackground(Color.WHITE);
         panel.setBackground( Color.WHITE );
+
+        intervalTime = new JLabel();
+        intervalTime.setFont(new Font("Arial Black", Font.BOLD, 300));
+        intervalTime.setHorizontalAlignment(SwingConstants.CENTER);
+
+        setTime = new JLabel();
+        setTime.setFont(new Font("Arial Black", Font.BOLD, 50));
+        setTime.setHorizontalAlignment(SwingConstants.CENTER);
+
+        message = new JLabel();
+        message.setFont( new Font( "Arial Black", Font.BOLD, 100 ) );
         message.setHorizontalAlignment( SwingConstants.CENTER );
+
+        panel.add(intervalTime);
+        innerPanel.add(message);
+        if(ofSet !=null) innerPanel.add(setTime);
+        panel.add( innerPanel );
+
         return panel;
     }
     private void refreshDisplay(){
-        count.setText( countdown.toReadableString());
-        countSet.setText(setCountdown.toReadableString());
-        message.setText( countdown.getMessage() );
-        if(setCountdown!=null) setCountdown.toReadableString();
+        intervalTime.setText(ofInterval.toReadableString());
+        setTime.setText(ofSet.toReadableString());
+        message.setText( ofInterval.getMessage() );
+        if(ofSet !=null) ofSet.toReadableString();
     }
     private void startTimer(){
         refreshDisplay();
-        count.setForeground( countdown.isCloseToEnd() ? Color.RED : Color.BLACK );
+        intervalTime.setForeground(ofInterval.isCloseToEnd() ? Color.RED : Color.BLACK);
         timer = new Timer( 1000, new TimerListener() );
         timer.setRepeats( true );
         timer.start();
@@ -78,25 +83,20 @@ public class CountdownFrame extends JFrame{
     }
     private class TimerListener implements ActionListener {
         @Override
-        public void actionPerformed( ActionEvent e )
-        {
-            countdown.decrement();
-            setCountdown.decrement();
-            count.setForeground( countdown.isCloseToEnd() ? Color.RED : Color.BLACK );
-            if( countdown.isFinished() ){
+        public void actionPerformed(ActionEvent e){
+            ofInterval.decrement();
+            ofSet.decrement();
+            intervalTime.setForeground(ofInterval.isCloseToEnd() ? Color.RED : Color.BLACK);
+            if( ofInterval.isFinished() ){
                 timer.stop();
             }
-            if( setCountdown.isFinished()){
-                countSet.setText("00:00");
-                count.setText("00:00");
-                message.setText( setCountdown.getMessage() );
-            }
-            else
-            {
+            if( ofSet.isFinished()){
+                setTime.setText("00:00");
+                intervalTime.setText("00:00");
+                message.setText( ofSet.getMessage() );
+            }else{
                 refreshDisplay();
             }
         }
     }
-
-
 }

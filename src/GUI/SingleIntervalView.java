@@ -1,6 +1,6 @@
 package GUI;
 
-import Interval.Interval;
+import Interval.Set;
 
 import javax.swing.*;
 import javax.swing.text.MaskFormatter;
@@ -11,7 +11,7 @@ import java.text.ParseException;
 
 public class SingleIntervalView {
     private JPanel panel;
-    private Interval interval;
+    private Set set;
     private JFormattedTextField timeField;
     private JTextField messageField;
     private JTable table;
@@ -19,7 +19,7 @@ public class SingleIntervalView {
     private JButton add;
 
     public void show(){
-        JFrame frame = new JFrame("Interval Creator");
+        JFrame frame = new JFrame("Set Creator");
         panel = new JPanel(new BorderLayout());
         panel.setSize(300,300);
         panel.setBackground(Color.WHITE);
@@ -37,10 +37,10 @@ public class SingleIntervalView {
         timeField.setText(text);
     }
 
-    public void displayInterval(Interval interval){
+    public void displayInterval(Set set){
         String[] columnNames = {"Time","Comment"};
-        this.interval = interval;
-        table = new JTable(interval.prepareForTable(),columnNames);
+        this.set = set;
+        table = new JTable(set.prepareForTable(),columnNames);
         JScrollPane scrollPane = new JScrollPane(table);
         scrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);
         scrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED);
@@ -106,21 +106,21 @@ public class SingleIntervalView {
     }
     public void refreshTable(){
         panel.remove(displayPanel);
-        displayInterval(interval);
+        displayInterval(set);
     }
     public class AddListener implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
-            interval.addToSchedule(timeField.getText(),messageField.getText());
+            set.addToSchedule(timeField.getText(),messageField.getText());
             panel.remove(displayPanel);
-            displayInterval(interval);
+            displayInterval(set);
         }
     }
 
     private class StartListener implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
-            interval.lunchInterval();
+            set.lunchInterval();
         }
     }
 
@@ -128,7 +128,7 @@ public class SingleIntervalView {
         @Override
         public void actionPerformed(ActionEvent e) {
             if(table.getSelectedRow()!=-1){
-                interval.removePosition(table.getSelectedRow());
+                set.removePosition(table.getSelectedRow());
                 refreshTable();
             }
         }
@@ -138,7 +138,7 @@ public class SingleIntervalView {
         @Override
         public void actionPerformed(ActionEvent e) {
             if(table.getSelectedRow()!=-1){
-                interval.editPosition(table.getSelectedRow(),timeField.getText(),messageField.getText());
+                set.editPosition(table.getSelectedRow(),timeField.getText(),messageField.getText());
                 refreshTable();
             }
         }
@@ -148,7 +148,7 @@ public class SingleIntervalView {
         @Override
         public void actionPerformed(ActionEvent e) {
             int index = (table.getSelectedRow()==-1) ? 0 : table.getSelectedRow();
-            interval.changePosition(index,(index-1));
+            set.changePosition(index,(index-1));
             refreshTable();
         }
     }
@@ -157,7 +157,7 @@ public class SingleIntervalView {
         @Override
         public void actionPerformed(ActionEvent e) {
             int index = (table.getSelectedRow()==-1) ? table.getRowCount() : table.getSelectedRow();
-            interval.changePosition(index,(index+1));
+            set.changePosition(index,(index+1));
             refreshTable();
         }
     }

@@ -1,17 +1,17 @@
 package GUI;
 
-import Interval.Interval;
+import Interval.Set;
 
 public class Main {
     public static void main(String[] args){
         SingleIntervalView singleIntervalView = new SingleIntervalView();
-        Interval interval = new Interval("First");
+        Set set = new Set("First");
 
         singleIntervalView.show();
         singleIntervalView.createSidePanel();
         singleIntervalView.createInputFields();
-        singleIntervalView.displayInterval(interval);
+        singleIntervalView.displayInterval(set);
 
-        //interval.lunchInterval();
+        //set.lunchInterval();
     }
 }

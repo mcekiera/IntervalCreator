@@ -15,33 +15,22 @@ public class SetView {
     private JFormattedTextField timeField;
     private JTextField messageField;
     private JTable table;
-    private JPanel displayPanel;
-    private JButton add;
     private UserInterface userInterface;
 
 
     public SetView(UserInterface container, Set newSet){
         set = newSet;
         userInterface = container;
+        panel = new JPanel(new BorderLayout());
     }
     public JPanel getSetView(){
-        panel = new JPanel(new BorderLayout());
-        displayInterval(set);
-        createSidePanel();
-        createInputFields();
+        panel.add(BorderLayout.CENTER, displayInterval());
+        panel.add(BorderLayout.EAST, createSidePanel());
         return panel;
     }
 
-    public JButton getAdd() {
-        return add;
-    }
-    public void setTimeField(String text) {
-        timeField.setText(text);
-    }
-
-    public void displayInterval(Set set){
+    public JPanel displayInterval(){
         String[] columnNames = {"Time","Comment"};
-        this.set = set;
         table = new JTable(set.prepareForTable(),columnNames){
             @Override
             public boolean isCellEditable(int row, int column){
@@ -52,19 +41,18 @@ public class SetView {
         JScrollPane scrollPane = new JScrollPane(table);
         scrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);
         scrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED);
-        displayPanel = new JPanel(new BorderLayout());
+        JPanel displayPanel = new JPanel(new BorderLayout());
         displayPanel.add(BorderLayout.PAGE_START,createInputFields());
         displayPanel.add(BorderLayout.CENTER,scrollPane);
-        panel.add(BorderLayout.CENTER,displayPanel);
-        panel.revalidate();
+        return displayPanel;
     }
 
-    public void createSidePanel(){
+    public JPanel createSidePanel(){
         JPanel sidePanel = new JPanel(new GridLayout(8,1,2,2));
 
         JButton ok = new JButton("OK");
         ok.addActionListener(new OKListener());
-        add = new JButton("ADD");
+        JButton add = new JButton("ADD");
         add.addActionListener(new AddListener());
         JButton edit = new JButton("EDIT");
         edit.addActionListener(new EditListener());
@@ -90,7 +78,7 @@ public class SetView {
         sidePanel.add(ok);
         sidePanel.add(lunch);
 
-        panel.add(BorderLayout.EAST,sidePanel);
+        return sidePanel;
     }
 
     public JPanel createInputFields(){
@@ -118,15 +106,17 @@ public class SetView {
         return formatter;
     }
     public void refreshTable(){
-        panel.remove(displayPanel);
-        displayInterval(set);
+        getSetView();
+        panel.revalidate();
+
     }
     public class AddListener implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
+            System.out.println(timeField.getText()+","+messageField.getText());
             set.addToSchedule(timeField.getText(),messageField.getText());
-            panel.remove(displayPanel);
-            displayInterval(set);
+            refreshTable();
+
         }
     }
 

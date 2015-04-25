@@ -16,10 +16,10 @@ public class SetTest {
         set.addToSchedule("1","2");
     }
 
-    @Test
-    public void testToString(){
-        assertEquals("int", set.toString());
-    }
+   // @Test
+    //public void testToString(){
+    //    assertEquals("int", set.toString());
+    //}
     @Test
     public void testPrepareForTable(){
         String[][] array = new String[1][];

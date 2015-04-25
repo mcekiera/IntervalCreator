@@ -6,7 +6,6 @@ import org.junit.runners.Suite;
 @Suite.SuiteClasses({
         CountdownTest.class,
         SetTest.class,
-        SingleIntervalViewTest.class,
         LibraryTest.class
 
 })

@@ -4,12 +4,10 @@ import Interval.Countdown;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
+import java.awt.event.*;
 
-public class CountdownFrame extends JFrame{
+public class CountdownFrame extends WindowAdapter{
+    private JFrame frame;
     private Timer timer;
     private JLabel intervalTime;
     private JLabel setTime;
@@ -18,27 +16,28 @@ public class CountdownFrame extends JFrame{
     private Countdown ofSet;
 
     public CountdownFrame(Countdown ofInterval, Countdown ofSet){
+        frame = new JFrame();
         this.ofInterval = ofInterval;
         this.ofSet = ofSet;
         display();
     }
     public void display(){
-        setDefaultCloseOperation(WindowConstants.HIDE_ON_CLOSE);
-        setUndecorated(true);
-        setExtendedState(MAXIMIZED_BOTH);
-        addMouseListener(new MouseAdapter() {
+        frame.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
+        frame.setUndecorated(true);
+        frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
+        frame.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                setVisible(false);
-                dispose();
-                setUndecorated(false);
-                revalidate();
-                setVisible(true);
+                frame.setVisible(false);
+                frame.dispose();
+                frame.setUndecorated(false);
+                frame.revalidate();
+                frame.setVisible(true);
             }
         });
-        add(initText());
+        frame.add(initText());
         startTimer();
-        setVisible(true);
+        frame.setVisible(true);
     }
     private JPanel initText(){
         JPanel panel = new JPanel( new GridLayout( 2, 1 ) );
@@ -81,6 +80,13 @@ public class CountdownFrame extends JFrame{
     public boolean isBusy(){
         return timer.isRunning();
     }
+
+    @Override
+    public void windowClosing(WindowEvent e){
+        timer.stop();
+        frame.dispose();
+    }
+
     private class TimerListener implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e){
@@ -100,4 +106,4 @@ public class CountdownFrame extends JFrame{
         }
     }
 }
-//todo pierszwy interwał nie wchodzi, ramka szaleje
+

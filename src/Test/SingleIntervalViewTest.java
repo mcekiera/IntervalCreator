@@ -10,8 +10,8 @@ public class SingleIntervalViewTest {
     Set set;
     @Before
     public void setUp() throws Exception {
-        setView = new SetView(null);
-        set = new Set("New");
+        setView = new SetView(null,null);
+        set = new Set();
         setView.createSidePanel();
         setView.createInputFields();
         setView.displayInterval(set);

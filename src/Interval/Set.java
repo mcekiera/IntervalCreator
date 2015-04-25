@@ -8,8 +8,7 @@ public class Set implements Runnable{
     protected ArrayList<String[]> schedule;
     private String name;
 
-    public Set(String name){
-        this.name = name;
+    public Set(){
         schedule = new ArrayList<String[]>();
     }
 

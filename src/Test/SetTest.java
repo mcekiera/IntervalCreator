@@ -12,7 +12,7 @@ public class SetTest {
 
     @Before
     public void before() throws Exception {
-        set = new Set("int");
+        set = new Set();
         set.addToSchedule("1","2");
     }
 

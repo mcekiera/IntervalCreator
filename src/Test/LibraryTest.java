@@ -17,9 +17,9 @@ public class LibraryTest {
 
     @Test
     public void testAddSet(){
-        library.add(new Set("One"));
-        library.add(new Set("Two"));
-        library.add(new Set("Three"));
+        library.add(new Set());
+        library.add(new Set());
+        library.add(new Set());
         assertEquals(3,library.size());
     }
 }

@@ -23,7 +23,7 @@ public class CountdownFrame extends JFrame{
         display();
     }
     public void display(){
-        setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(WindowConstants.HIDE_ON_CLOSE);
         setUndecorated(true);
         setExtendedState(MAXIMIZED_BOTH);
         addMouseListener(new MouseAdapter() {
@@ -100,3 +100,4 @@ public class CountdownFrame extends JFrame{
         }
     }
 }
+//todo pierszwy interwał nie wchodzi, ramka szaleje

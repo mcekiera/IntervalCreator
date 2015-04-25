@@ -1,6 +1,7 @@
 package GUI;
 
 import Interval.Library;
+import Interval.Set;
 
 import javax.swing.*;
 import java.awt.*;
@@ -8,14 +9,16 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class UserInterface{
-    JFrame frame;
-    Library library;
-    JPanel mainPanel;
-    SetView setView;
+    private JFrame frame;
+    private Library library;
+    private JPanel mainPanel;
 
     public UserInterface(){
         library = new Library();
-        setView = new SetView(this);
+
+    }
+    public Library getLibrary(){
+        return library;
     }
     public void show(){
         frame = new JFrame("Interval Creator");
@@ -71,17 +74,29 @@ public class UserInterface{
         scrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED);
         return scrollPane;
     }
+    public void installPanel(){
+        frame.setVisible(false);
+        frame.remove(mainPanel);
+        mainPanel = mainView();
+        frame.add(mainPanel);
+        frame.revalidate();
+        frame.setVisible(true);
+    }
+    public void installPanel(JPanel panel){
+        frame.setVisible(false);
+        frame.remove(mainPanel);
+        mainPanel = panel;
+        frame.add(mainPanel);
+        frame.revalidate();
+        frame.setVisible(true);
+    }
 
 
     private class newListener implements ActionListener {
         @Override
-        public void actionPerformed(ActionEvent e) {
-            frame.setVisible(false);
-            frame.remove(mainPanel);
-            mainPanel = setView.getSetView();
-            frame.add(mainPanel);
-            frame.revalidate();
-            frame.setVisible(true);
+        public void actionPerformed(ActionEvent e){
+            SetView setView = new SetView(UserInterface.this, new Set());
+            installPanel(setView.getSetView());
         }
     }
 }

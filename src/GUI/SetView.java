@@ -17,10 +17,12 @@ public class SetView {
     private JTable table;
     private JPanel displayPanel;
     private JButton add;
+    private UserInterface userInterface;
 
 
-    public SetView(UserInterface container){
-        set = new Set(null);
+    public SetView(UserInterface container, Set newSet){
+        set = newSet;
+        userInterface = container;
     }
     public JPanel getSetView(){
         panel = new JPanel(new BorderLayout());
@@ -58,16 +60,18 @@ public class SetView {
     }
 
     public void createSidePanel(){
-        JPanel sidePanel = new JPanel(new GridLayout(5,1,2,2));
+        JPanel sidePanel = new JPanel(new GridLayout(8,1,2,2));
 
+        JButton ok = new JButton("OK");
+        ok.addActionListener(new OKListener());
         add = new JButton("ADD");
         add.addActionListener(new AddListener());
         JButton edit = new JButton("EDIT");
         edit.addActionListener(new EditListener());
         JButton delete = new JButton("DEL");
         delete.addActionListener(new DeleteListener());
-        JButton start = new JButton("START");
-        start.addActionListener(new StartListener());
+        JButton lunch = new JButton("Lunch");
+        lunch.addActionListener(new StartListener());
         JButton up = new JButton("^");
         up.addActionListener(new UpArrowListener());
         JButton down = new JButton("v");
@@ -81,7 +85,10 @@ public class SetView {
         sidePanel.add(edit);
         sidePanel.add(delete);
         sidePanel.add(upDown);
-        sidePanel.add(start);
+        sidePanel.add(new JPanel());
+        sidePanel.add(new JPanel());
+        sidePanel.add(ok);
+        sidePanel.add(lunch);
 
         panel.add(BorderLayout.EAST,sidePanel);
     }
@@ -165,6 +172,15 @@ public class SetView {
             int index = (table.getSelectedRow()==-1) ? table.getRowCount() : table.getSelectedRow();
             set.changePosition(index,(index+1));
             refreshTable();
+        }
+    }
+
+    private class OKListener implements ActionListener {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            userInterface.getLibrary().add(set);
+            userInterface.installPanel();
+
         }
     }
 }

@@ -29,6 +29,10 @@ public class SetView {
         JPanel newPanel = new JPanel(new BorderLayout());
         newPanel.add(BorderLayout.CENTER, displayInterval());
         newPanel.add(BorderLayout.EAST, createSidePanel());
+
+        if(setIsEdited()){
+            nameField.setText(set.getName());
+        }
         return newPanel;
     }
 
@@ -128,23 +132,37 @@ public class SetView {
         }
         return formatter;
     }
+
     public void refreshTable(){
         userInterface.installPanel(getView());
 
     }
+
+    public boolean setIsEdited(){
+        for(Set editedSet: userInterface.getLibrary()){
+            if(editedSet.equals(set)){
+                return true;
+            }
+        }
+        return false;
+    }
+
     public class AddListener implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
+            String name = nameField.getText();
             System.out.println(timeField.getText()+","+messageField.getText());
             set.addToSchedule(timeField.getText(),messageField.getText());
             refreshTable();
+            nameField.setText(name);
+
         }
     }
 
     private class StartListener implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
-            set.lunchInterval();
+            set.lunch();
         }
     }
 
@@ -189,11 +207,13 @@ public class SetView {
     private class OKListener implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
-            set.setName(nameField.getText());
-            userInterface.getLibrary().add(set);
-            userInterface.installPanel(userInterface.getView());
-
-
+            if(setIsEdited()){
+                userInterface.installPanel(userInterface.getView());
+            }else{
+                set.setName(nameField.getText());
+                userInterface.getLibrary().add(set);
+                userInterface.installPanel(userInterface.getView());
+            }
         }
     }
 }

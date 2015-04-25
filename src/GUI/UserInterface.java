@@ -12,6 +12,7 @@ public class UserInterface{
     private JFrame frame;
     private Library library;
     private JPanel mainPanel;
+    private JTable table;
 
     public UserInterface(){
         library = new Library();
@@ -41,10 +42,12 @@ public class UserInterface{
         JPanel buttonsPanel = new JPanel(new GridLayout(8,1,3,3));
 
         JButton newSet = new JButton("New");
-        newSet.addActionListener(new newListener());
+        newSet.addActionListener(new NewListener());
         JButton edit = new JButton("Edit");
+        edit.addActionListener(new EditListener());
         JButton delete = new JButton("Delete");
         JButton lunch = new JButton("Lunch");
+        lunch.addActionListener(new LunchListener());
         JButton save = new JButton("Save");
         JButton load = new JButton("Load");
 
@@ -62,12 +65,13 @@ public class UserInterface{
 
     public JScrollPane createTable(){
         String[] columnNames = {"Name","Steps","Duration"};
-        JTable table = new JTable(library.extractDataForTable(),columnNames){
+        table = new JTable(library.extractDataForTable(),columnNames){
             @Override
             public boolean isCellEditable(int row, int column){
                 return false;
             }
         };
+        table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         JScrollPane scrollPane = new JScrollPane(table);
         scrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);
         scrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED);
@@ -84,10 +88,26 @@ public class UserInterface{
     }
 
 
-    private class newListener implements ActionListener {
+    private class NewListener implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e){
             SetView setView = new SetView(UserInterface.this, new Set());
+            installPanel(setView.getView());
+        }
+    }
+
+    private class LunchListener implements ActionListener {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            library.get(table.getSelectedRow()).lunch();
+        }
+    }
+
+    private class EditListener implements ActionListener {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            Set selectedSet = library.get(table.getSelectedRow());
+            SetView setView = new SetView(UserInterface.this, selectedSet);
             installPanel(setView.getView());
         }
     }

@@ -94,7 +94,7 @@ public class Set implements Runnable{
         return list;
     }
 
-    public void lunchInterval(){
+    public void lunch(){
         new Thread(this).start();
     }
 

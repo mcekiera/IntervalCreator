@@ -2,29 +2,12 @@ package Interval;
 
 import java.util.ArrayList;
 
-public class Library {
-    private ArrayList<Set> data;
-
-    public Library(){
-        data = new ArrayList<Set>();
-    }
-
-    public int getSize(){
-        return data.size();
-    }
-
-    public void addSet(Set set){
-        data.add(set);
-    }
-
-    public void removeSet(int position){
-        data.remove(position);
-    }
+public class Library extends ArrayList<Set>{
 
     public String[][] extractDataForTable(){
-        String[][] forTable = new String[data.size()][3];
+        String[][] forTable = new String[this.size()][3];
         int index = 0;
-        for(Set set: data){
+        for(Set set: this){
             String[] strings = {set.getName(),set.getSize(), set.sumUpTime()};
             forTable[index] = strings;
             index++;

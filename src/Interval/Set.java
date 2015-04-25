@@ -96,19 +96,25 @@ public class Set implements Runnable{
         new Thread(this).start();
     }
 
-
-    @Override
-    public void run() {
+    public String[][] scheduleToArray(){
         String[][] temp = new String[schedule.size()][];
         for(int i=0; i<schedule.size();i++){
             temp[i] = schedule.get(i);
         }
+        return temp;
+    }
+
+
+    @Override
+    public void run() {
+        String[][] data = scheduleToArray();
+
         int index = 0;
         Countdown totalSetTime = new Countdown(sumUpTime(),"END");
         CountdownFrame countdownFrame = null;
-        while(index<temp.length){
+        while(index<data.length){
             if(countdownFrame==null || !countdownFrame.isBusy()){
-                countdownFrame = new CountdownFrame(new Countdown(temp[index][0],temp[index][1]),totalSetTime);
+                countdownFrame = new CountdownFrame(new Countdown(data[index][0],data[index][1]),totalSetTime);
                 index++;
             }
         }

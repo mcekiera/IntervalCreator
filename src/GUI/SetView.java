@@ -9,7 +9,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.text.ParseException;
 
-public class SingleIntervalView {
+public class SetView {
     private JPanel panel;
     private Set set;
     private JFormattedTextField timeField;
@@ -18,16 +18,16 @@ public class SingleIntervalView {
     private JPanel displayPanel;
     private JButton add;
 
-    public void show(){
-        JFrame frame = new JFrame("Set Creator");
-        panel = new JPanel(new BorderLayout());
-        panel.setSize(300,300);
-        panel.setBackground(Color.WHITE);
-        frame.getContentPane().add(BorderLayout.CENTER,panel);
 
-        frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-        frame.setSize(400,300);
-        frame.setVisible(true);
+    public SetView(UserInterface container){
+        set = new Set(null);
+    }
+    public JPanel getSetView(){
+        panel = new JPanel(new BorderLayout());
+        displayInterval(set);
+        createSidePanel();
+        createInputFields();
+        return panel;
     }
 
     public JButton getAdd() {
@@ -40,7 +40,13 @@ public class SingleIntervalView {
     public void displayInterval(Set set){
         String[] columnNames = {"Time","Comment"};
         this.set = set;
-        table = new JTable(set.prepareForTable(),columnNames);
+        table = new JTable(set.prepareForTable(),columnNames){
+            @Override
+            public boolean isCellEditable(int row, int column){
+                return false;
+            }
+        };
+
         JScrollPane scrollPane = new JScrollPane(table);
         scrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);
         scrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED);

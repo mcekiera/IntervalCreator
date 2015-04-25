@@ -7,7 +7,7 @@ import org.junit.Test;
 
 import static junit.framework.Assert.assertEquals;
 
-public class IntervalTest {
+public class SetTest {
     Set set;
 
     @Before

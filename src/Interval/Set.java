@@ -2,9 +2,10 @@ package Interval;
 
 import GUI.CountdownFrame;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class Set implements Runnable{
+public class Set implements Runnable,Serializable {
     protected ArrayList<String[]> schedule;
     private String name;
 

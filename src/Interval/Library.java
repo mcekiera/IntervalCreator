@@ -1,8 +1,9 @@
 package Interval;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class Library extends ArrayList<Set>{
+public class Library extends ArrayList<Set> implements Serializable{
 
     public String[][] extractDataForTable(){
         String[][] forTable = new String[this.size()][3];

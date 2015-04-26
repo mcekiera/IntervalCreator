@@ -53,7 +53,7 @@ public class Countdown{
      * @return true if 5 seconds left to end of countdown.
      */
     public boolean isCloseToEnd(){
-        return minutes < 1 && seconds <= 5;
+        return minutes < 1 && seconds <= 6;
     }
 
     /**

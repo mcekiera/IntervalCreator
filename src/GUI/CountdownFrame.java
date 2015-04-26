@@ -1,6 +1,7 @@
 package GUI;
 
 import Interval.Countdown;
+import Interval.Set;
 
 import javax.swing.*;
 import java.awt.*;
@@ -18,17 +19,21 @@ public class CountdownFrame extends WindowAdapter{
     private JLabel message;
     private Countdown ofInterval;
     private Countdown ofSet;
+    private Set set;
+    private static int setIndex;
 
     /**
      * Constructor use two Countdown objects, providing data to countdown display.
-     * @param ofInterval is a Countdown object of single position in Set,
+     * @param set, gdfgdfg
      * @param ofSet is created only as a information holder, it provide information and allows to display countdown for
      *              whole Set duration.
      */
-    public CountdownFrame(Countdown ofInterval, Countdown ofSet){
+    public CountdownFrame(Set set, Countdown ofSet){
         frame = new JFrame();
-        this.ofInterval = ofInterval;
+        this.set = set;
         this.ofSet = ofSet;
+        setIndex = 0;
+        getPartialCountdown();
         display();
     }
 
@@ -87,7 +92,7 @@ public class CountdownFrame extends WindowAdapter{
     }
 
     /**
-     * Refresh content of a display.
+     * Refresh content of a display. If
      */
     private void refreshDisplay(){
         intervalTime.setText(ofInterval.toReadableString());
@@ -95,11 +100,6 @@ public class CountdownFrame extends WindowAdapter{
         message.setText( ofInterval.getMessage() );
 
     }
-
-    /**
-     * Initialize work of Timer object, for particular countdown. If countdown is close to end, changes color
-     * of displayed text form black to red. Timers work is set on 1000 millisecond.
-     */
     private void startTimer(){
         refreshDisplay();
         intervalTime.setForeground(ofInterval.isCloseToEnd() ? Color.RED : Color.BLACK);
@@ -107,44 +107,40 @@ public class CountdownFrame extends WindowAdapter{
         timer.setRepeats( true );
         timer.start();
     }
-
-    /**
-     * Provides information for Set class, by which it is determined, if next countdown in a Set.schedule, should starts.
-     * @return true if Timer object is still working.
-     */
     public boolean isBusy(){
         return timer.isRunning();
     }
+    public void getPartialCountdown(){
+        Set clone = new Set();
+        clone.setSchedule(set.copySchedule());
+        clone.addToSchedule("00:00",clone.getSchedule().get(Integer.parseInt(clone.getSize())-1)[1]);
+        String[] part = clone.getSchedule().get(setIndex);
 
-    /**
-     * Window event handler. It stops work of Timer with closing of JFrame.
-     * @param e event fired by closing of JFrame.
-     */
+        ofInterval = new Countdown(part[0], part[1]);
+        setIndex = (setIndex< clone.getSchedule().size()-1) ? ++setIndex : setIndex;
+    }
+
     @Override
     public void windowClosing(WindowEvent e){
         timer.stop();
         frame.dispose();
     }
 
-    /**
-     * Inner class, contains method fired by Timer counting. It decrease values provided within constructor, and
-     * display it on JFrame.
-     */
     private class TimerListener implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e){
+
             ofInterval.decrement();
             ofSet.decrement();
             intervalTime.setForeground(ofInterval.isCloseToEnd() ? Color.RED : Color.BLACK);
-            if( ofInterval.isFinished() ){
-                timer.stop();
-                frame.setVisible(false);
 
+            if( ofInterval.isFinished()){
+                getPartialCountdown();
             }
             if( ofSet.isFinished()){
-                setTime.setText("00:00");
-                intervalTime.setText("00:00");
+                timer.stop();
                 message.setText( ofSet.getMessage() );
+                frame.setVisible(false);
                 frame.dispose();
             }else{
                 refreshDisplay();
@@ -152,4 +148,6 @@ public class CountdownFrame extends WindowAdapter{
         }
     }
 }
+
+//todo display działa do dupy po zmianie
 

@@ -27,7 +27,9 @@ public class Set implements Runnable,Serializable {
     public String getSize(){
         return String.valueOf(schedule.size());
     }
-
+    public void setSchedule(ArrayList<String[]> schedule){
+        this.schedule = schedule;
+    }
     public ArrayList<String[]> getSchedule() {
         return schedule;
     }
@@ -64,9 +66,10 @@ public class Set implements Runnable,Serializable {
             temp.remove(direction);
             temp.add(direction,schedule.get(positionNumber));
             schedule = temp;
-        }
-    }
 
+        }
+
+    }
     public String sumUpTime(){
         if(schedule.isEmpty()) return "00:00";
 
@@ -103,25 +106,22 @@ public class Set implements Runnable,Serializable {
         new Thread(this).start();
     }
 
-    public String[][] scheduleToArray(){
-        String[][] temp = new String[schedule.size()][];
-        for(int i=0; i<schedule.size();i++){
-            temp[i] = schedule.get(i);
+    public ArrayList<String[]> copySchedule(){
+        ArrayList<String[]> copy = new ArrayList<String[]>();
+        for(String[] element: schedule){
+            copy.add(element);
         }
-        return temp;
+        return copy;
     }
-
 
     @Override
     public void run() {
-        String[][] data = scheduleToArray();
-
         int index = 0;
         Countdown totalSetTime = new Countdown(sumUpTime(),"END");
         CountdownFrame countdownFrame = null;
-        while(index<data.length){
+        while(index<schedule.size()){
             if(countdownFrame==null || !countdownFrame.isBusy()){
-                countdownFrame = new CountdownFrame(new Countdown(data[index][0],data[index][1]),totalSetTime);
+                countdownFrame = new CountdownFrame(this,totalSetTime);
                 index++;
             }
         }

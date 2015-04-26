@@ -53,23 +53,24 @@ public class Countdown{
      * @return true if 5 seconds left to end of countdown.
      */
     public boolean isCloseToEnd(){
-        return minutes < 1 && seconds <= 6;
+        return minutes < 1 && seconds <= 5;
     }
 
     /**
      * Provide information about an ending of countdown.
-     * @return true if time value is 00:00.
+     * @return true if time value is -1:59.
      */
     public boolean isFinished(){
-        return minutes < 1 && seconds <1;
+        return minutes == -1 && seconds == 59;
     }
 
     /**
-     * Decrement values of minutes and seconds fields, as a integral part of countdown.
+     * Decrement values of minutes and seconds fields, as a integral part of countdown. The border value is a -1:59,
+     * because it allows to countdown to a 00:00 value.
      * @return this, only for test purposes.
      */
     public Countdown decrement(){
-        if(!(seconds == 0 && minutes == 0)){
+        if(!(seconds == -1 && minutes == 59)){
             if(seconds > 0){
                 seconds--;
             }

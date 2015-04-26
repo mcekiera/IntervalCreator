@@ -9,7 +9,7 @@ import java.awt.event.*;
 
 /**
  * This class creates a JFrame, and proceed a counting, on a data derived from particular Countdown object. Class
- * extends WindowAdapter, what allows to implement MouseListener() and MouseClicked() method.
+ * extends WindowAdapter, what allows to implement MouseClicked() method.
  */
 public class CountdownFrame extends WindowAdapter{
     private JFrame frame;
@@ -103,21 +103,20 @@ public class CountdownFrame extends WindowAdapter{
     private void startTimer(){
         refreshDisplay();
         intervalTime.setForeground(ofInterval.isCloseToEnd() ? Color.RED : Color.BLACK);
-        timer = new Timer( 1000, new TimerListener() );
-        timer.setRepeats( true );
+        timer = new Timer(1000, new TimerListener());
+        timer.setRepeats(true);
         timer.start();
     }
-    public boolean isBusy(){
-        return timer.isRunning();
-    }
-    public void getPartialCountdown(){
-        Set clone = new Set();
-        clone.setSchedule(set.copySchedule());
-        clone.addToSchedule("00:00",clone.getSchedule().get(Integer.parseInt(clone.getSize())-1)[1]);
-        String[] part = clone.getSchedule().get(setIndex);
 
+    /**
+     * Method which allows to display partial countdown next to countdown of whole Set. It changes a reference
+     * of ofInterval in response to ending of previous partial countdown. To prevent ArrayOutOfBounds Exception
+     * it increase value of setIndex only if it will not exceed schedule.size.
+     */
+    public void getPartialCountdown(){
+        String[] part = set.getSchedule().get(setIndex);
         ofInterval = new Countdown(part[0], part[1]);
-        setIndex = (setIndex< clone.getSchedule().size()-1) ? ++setIndex : setIndex;
+        setIndex = (setIndex < set.getSchedule().size()) ? ++setIndex : setIndex;
     }
 
     @Override
@@ -134,20 +133,18 @@ public class CountdownFrame extends WindowAdapter{
             ofSet.decrement();
             intervalTime.setForeground(ofInterval.isCloseToEnd() ? Color.RED : Color.BLACK);
 
-            if( ofInterval.isFinished()){
-                getPartialCountdown();
-            }
             if( ofSet.isFinished()){
                 timer.stop();
                 message.setText( ofSet.getMessage() );
                 frame.setVisible(false);
                 frame.dispose();
-            }else{
-                refreshDisplay();
+            }else if( ofInterval.isFinished()){
+                getPartialCountdown();
             }
+            if(frame.isVisible()) refreshDisplay();
+
         }
     }
 }
 
-//todo display działa do dupy po zmianie
 

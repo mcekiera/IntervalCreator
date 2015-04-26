@@ -73,8 +73,12 @@ public class Set implements Runnable,Serializable {
     public String sumUpTime(){
         if(schedule.isEmpty()) return "00:00";
 
+
         int min = 0;
-        int sec = 0;
+        int sec = schedule.size()-1;    // This line adds to summed time of schedule an additional value
+                                        // of seconds, which equals schedule.size decremented by 1. Because of that,
+                                        // it is possible to display partly countdown to 00:00 value, and maintaining
+                                        // a compatibility of partial time and summed time.
 
         for(String[] part: schedule){
             String[] time = part[0].split(":");
@@ -116,14 +120,6 @@ public class Set implements Runnable,Serializable {
 
     @Override
     public void run() {
-        int index = 0;
-        Countdown totalSetTime = new Countdown(sumUpTime(),"END");
-        CountdownFrame countdownFrame = null;
-        while(index<schedule.size()){
-            if(countdownFrame==null || !countdownFrame.isBusy()){
-                countdownFrame = new CountdownFrame(this,totalSetTime);
-                index++;
-            }
-        }
+        new CountdownFrame(this,new Countdown(sumUpTime(),""));
     }
 }

@@ -45,7 +45,7 @@ public class SetView {
             }
         };
         table.getColumnModel().getColumn(0).setMaxWidth(35);
-
+        table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 
         JScrollPane scrollPane = new JScrollPane(table);
         scrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);
@@ -91,7 +91,7 @@ public class SetView {
     }
 
     public JPanel createInputFields(){
-        JPanel inputPanel = new JPanel(new GridLayout(2,1));
+        JPanel inputPanel = new JPanel(new GridLayout(2,1,2,2));
 
         nameField = new JTextField(10);
         JLabel setName = new JLabel("Set name: ");
@@ -99,6 +99,28 @@ public class SetView {
         namePanel.setLayout(new BoxLayout(namePanel, BoxLayout.X_AXIS));
         namePanel.add(setName);
         namePanel.add(nameField);
+        //////////////////////////////////////////////////////
+        JPanel options = new JPanel();
+        options.setLayout(new BoxLayout(options, BoxLayout.X_AXIS));
+        JCheckBox closeToEnd = new JCheckBox("Change color");
+        JTextField toEnd = new JTextField(2);
+        JLabel before = new JLabel("before end.   ");
+        options.add(closeToEnd);
+        options.add(toEnd);
+        options.add(before);
+
+        JPanel repeat = new JPanel();
+        repeat.setLayout(new BoxLayout(repeat,BoxLayout.X_AXIS));
+        JRadioButton bySet = new JRadioButton("Set");
+        JRadioButton byPosition = new JRadioButton("Position");
+        JLabel repeats = new JLabel("Repeat by");
+        repeat.add(repeats);
+        repeat.add(bySet);
+        repeat.add(byPosition);
+        ///////////////////////////////////////////////////////////
+        JPanel mid = new JPanel(new GridLayout(1,2,2,2));
+        mid.add(options);
+        mid.add(repeat);
 
         timeField = new JFormattedTextField(createFormatter("##:##"));
         timeField.setColumns(3);
@@ -114,9 +136,11 @@ public class SetView {
 
         JPanel fieldPanel = new JPanel();
         fieldPanel.setLayout(new BoxLayout(fieldPanel,BoxLayout.X_AXIS));
-        inputPanel.add(namePanel);
         fieldPanel.add(timeField);
         fieldPanel.add(messageField);
+
+        inputPanel.add(namePanel);
+        //inputPanel.add(mid);
         inputPanel.add(fieldPanel);
 
         return inputPanel;
@@ -151,7 +175,6 @@ public class SetView {
         @Override
         public void actionPerformed(ActionEvent e) {
             String name = nameField.getText();
-            System.out.println(timeField.getText()+","+messageField.getText());
             set.addToSchedule(timeField.getText(),messageField.getText());
             refreshTable();
             nameField.setText(name);

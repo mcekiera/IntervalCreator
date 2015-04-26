@@ -8,6 +8,7 @@ import java.util.ArrayList;
 public class Set implements Runnable,Serializable {
     protected ArrayList<String[]> schedule;
     private String name;
+    private String redCount;
 
     public Set(){
         schedule = new ArrayList<String[]>();

@@ -29,7 +29,7 @@ public class UserInterface{
         frame.getContentPane().add(BorderLayout.CENTER,mainPanel);
 
         frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-        frame.setSize(400,300);
+        frame.pack();
         frame.setVisible(true);
     }
     public JPanel getView(){
@@ -96,6 +96,10 @@ public class UserInterface{
         JOptionPane.showMessageDialog(frame,"File not found","Error",JOptionPane.ERROR_MESSAGE);
     }
 
+    public boolean rowIsNotSelected(){
+        return table.getSelectedRow()==-1;
+    }
+
 
     private class NewListener implements ActionListener {
         @Override
@@ -108,6 +112,7 @@ public class UserInterface{
     private class LunchListener implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
+            if(rowIsNotSelected()) return;
             library.get(table.getSelectedRow()).lunch();
         }
     }
@@ -115,6 +120,7 @@ public class UserInterface{
     private class EditListener implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
+            if(rowIsNotSelected()) return;
             Set selectedSet = library.get(table.getSelectedRow());
             SetView setView = new SetView(UserInterface.this, selectedSet);
             installPanel(setView.getView());
@@ -124,6 +130,7 @@ public class UserInterface{
     private class DeleteListener implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
+            if(rowIsNotSelected()) return;
             library.remove(table.getSelectedRow());
             installPanel(getView());
         }

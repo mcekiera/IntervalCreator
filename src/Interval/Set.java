@@ -5,10 +5,13 @@ import GUI.CountdownFrame;
 import java.io.Serializable;
 import java.util.ArrayList;
 
+/**
+ * Class contains an information about set of intervals created by user. It have a name filed for identification
+ * in UserInterface table, and schedule ArrayList with set of String, for time to count and message to display.
+ */
 public class Set implements Runnable,Serializable {
     protected ArrayList<String[]> schedule;
     private String name;
-    private String redCount;
 
     public Set(){
         schedule = new ArrayList<String[]>();

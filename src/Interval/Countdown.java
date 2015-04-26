@@ -2,8 +2,8 @@ package Interval;
 
 /**
  *  Countdown class is responsible for a countdown a single time value, introduced by user. It contains
- *  information about minutes and seconds, which would be counted, and a message, which be displayed
- *  during countdown.
+ *  information about minutes and seconds, which would be counted, and a message,
+ *  which would be displayed during countdown.
  */
 public class Countdown{
     private String message;
@@ -11,7 +11,7 @@ public class Countdown{
     private int seconds;
 
     /**
-     * Countdown both constructors parameters are derived from Set.class schedule ArrayList, which contains user input.
+     * Both constructors parameters are derived from Set.schedule ArrayList, which contains user input.
      * @param timeToCount String in format "mm:ss", base time for countdown. Proper format is determined by
      *                    restrictions for user input.
      * @param displayedMessage String displaying during countdown.
@@ -22,7 +22,7 @@ public class Countdown{
     }
 
     /**
-     * splitStringIntoInt is responsible for extracting a time value for class fields: minutes and seconds,
+     * Is responsible for extracting a time value for class fields: minutes and seconds
      * from a given String. Proper String format is determined by restrictions in user input.
      * @param str String in format "mm:ss".
      */
@@ -33,7 +33,7 @@ public class Countdown{
     }
 
     /**
-     * toReadableString is used to export formatted, ready to display, time data form class.
+     * Used to export formatted, ready to display, time data form class.
      * @return String in format "##:##", contains minutes and seconds.
      */
     public String toReadableString(){

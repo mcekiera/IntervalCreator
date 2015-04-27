@@ -64,6 +64,9 @@ public class Countdown{
         return minutes == -1 && seconds == 59;
     }
 
+    public boolean isZero(){
+        return minutes == 0 && seconds == 0;
+    }
     /**
      * Decrement values of minutes and seconds fields, as a integral part of countdown. The border value is a -1:59,
      * because it allows to countdown to a 00:00 value.

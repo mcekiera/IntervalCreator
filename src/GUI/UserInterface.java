@@ -29,7 +29,7 @@ public class UserInterface{
         frame.getContentPane().add(BorderLayout.CENTER,mainPanel);
 
         frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-        frame.pack();
+        frame.setSize(350,250);
         frame.setVisible(true);
     }
     public JPanel getView(){
@@ -172,4 +172,5 @@ public class UserInterface{
             installPanel(getView());
         }
     }
+
 }

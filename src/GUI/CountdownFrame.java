@@ -2,16 +2,18 @@ package GUI;
 
 import Interval.Countdown;
 import Interval.Set;
+import Interval.Signal;
+import Interval.Sounds;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 
 /**
- * This class creates a JFrame, and proceed a counting, on a data derived from particular Countdown object. Class
- * extends WindowAdapter, what allows to implement MouseClicked() method.
+ * This class creates a JFrame, and proceed a counting on a data, derived from particular Set object (for whole
+ * set countdown) and Countdown object (for partial countdown).
  */
-public class CountdownFrame extends WindowAdapter{
+public class CountdownFrame{
     private JFrame frame;
     private Timer timer;
     private JLabel intervalTime;
@@ -20,19 +22,30 @@ public class CountdownFrame extends WindowAdapter{
     private Countdown ofInterval;
     private Countdown ofSet;
     private Set set;
+    private Signal signal;
     private static int setIndex;
 
     /**
-     * Constructor use two Countdown objects, providing data to countdown display.
-     * @param set, gdfgdfg
+     * Constructor use two Countdown objects, providing data to countdown display. JFrame frame have a Window Listener
+     * which allows to stop countdown in a case of window closing.
+     * @param set, provide information for partial countdowns,
      * @param ofSet is created only as a information holder, it provide information and allows to display countdown for
      *              whole Set duration.
      */
     public CountdownFrame(Set set, Countdown ofSet){
         frame = new JFrame();
+        frame.addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosing(WindowEvent e) {
+                super.windowClosing(e);
+                if(timer.isRunning()) timer.stop();
+                frame.dispose();
+            }
+        });
         this.set = set;
         this.ofSet = ofSet;
         setIndex = 0;
+        signal = new Signal();
         getPartialCountdown();
         display();
     }
@@ -119,11 +132,6 @@ public class CountdownFrame extends WindowAdapter{
         setIndex = (setIndex < set.getSchedule().size()) ? ++setIndex : setIndex;
     }
 
-    @Override
-    public void windowClosing(WindowEvent e){
-        timer.stop();
-        frame.dispose();
-    }
 
     private class TimerListener implements ActionListener {
         @Override
@@ -132,6 +140,9 @@ public class CountdownFrame extends WindowAdapter{
             ofInterval.decrement();
             ofSet.decrement();
             intervalTime.setForeground(ofInterval.isCloseToEnd() ? Color.RED : Color.BLACK);
+
+            if(ofSet.isZero()) signal.getSound(Sounds.FINISH).run();
+            if(ofInterval.isZero()) signal.getSound(Sounds.TRANSITION).run();
 
             if( ofSet.isFinished()){
                 timer.stop();

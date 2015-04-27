@@ -231,6 +231,7 @@ public class SetView {
         @Override
         public void actionPerformed(ActionEvent e) {
             if(setIsEdited()){
+                set.setName(nameField.getText());
                 userInterface.installPanel(userInterface.getView());
             }else{
                 set.setName(nameField.getText());

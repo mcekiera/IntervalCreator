@@ -140,8 +140,12 @@ public class UserInterface{
         @Override
         public void actionPerformed(ActionEvent e) {
             try{
-                OutputStream file = new FileOutputStream("save.ser");
-                OutputStream buffer = new BufferedOutputStream(file);
+                JFileChooser fileChooser = new JFileChooser();
+                fileChooser.showSaveDialog(frame);
+                File file = fileChooser.getSelectedFile().getAbsolutePath().endsWith(".ser") ?
+                        fileChooser.getSelectedFile() : new File(fileChooser.getSelectedFile() + ".ser");
+                OutputStream stream = new FileOutputStream(file);
+                OutputStream buffer = new BufferedOutputStream(stream);
                 ObjectOutput object = new ObjectOutputStream(buffer);
                 object.writeObject(library);
                 object.close();
@@ -157,7 +161,9 @@ public class UserInterface{
         @Override
         public void actionPerformed(ActionEvent e) {
             try{
-                InputStream file = new FileInputStream("save.ser");
+                JFileChooser fileChooser = new JFileChooser();
+                fileChooser.showOpenDialog(frame);
+                InputStream file = new FileInputStream(fileChooser.getSelectedFile());
                 InputStream buffer = new BufferedInputStream(file);
                 ObjectInput object = new ObjectInputStream(buffer);
                 library = (Library)(object.readObject());

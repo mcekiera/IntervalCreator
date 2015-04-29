@@ -141,8 +141,11 @@ public class CountdownFrame{
             ofSet.decrement();
             intervalTime.setForeground(ofInterval.isCloseToEnd() ? Color.RED : Color.BLACK);
 
-            if(ofSet.isZero()) signal.getSound(Sounds.FINISH).run();
-            if(ofInterval.isZero()) signal.getSound(Sounds.TRANSITION).run();
+            if(ofSet.isZero()){
+                signal.getSound(Sounds.FINISH).run();
+            }else if(ofInterval.isZero()){
+                signal.getSound(Sounds.TRANSITION).run();
+            }
 
             if( ofSet.isFinished()){
                 timer.stop();

@@ -235,7 +235,7 @@ public class SetView {
                 userInterface.installPanel(userInterface.getView());
             }else{
                 set.setName(nameField.getText());
-                userInterface.getLibrary().add(set);
+                if(!set.sumUpTime().equals("00:00"))userInterface.getLibrary().add(set);
                 userInterface.installPanel(userInterface.getView());
             }
         }

@@ -11,6 +11,9 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.text.ParseException;
 
+/**
+ * Class is responsible for handling particular Set by GUI. It display and can modify Set.
+ */
 public class SetView {
 
     private Set set;
@@ -20,11 +23,20 @@ public class SetView {
     private JTable table;
     private UserInterface userInterface;
 
-
+    /**
+     * SetView constructor
+     * @param container the link to main GUI,
+     * @param newSet is the Set to display and work on.
+     */
     public SetView(UserInterface container, Set newSet){
         set = newSet;
         userInterface = container;
     }
+
+    /**
+     * Creates GUI
+     * @return JPanel with GUI content
+     */
     public JPanel getView(){
         JPanel newPanel = new JPanel(new BorderLayout());
         newPanel.add(BorderLayout.CENTER, displayInterval());
@@ -36,6 +48,10 @@ public class SetView {
         return newPanel;
     }
 
+    /**
+     * Creates a JTable with Set data
+     * @return Panel with GUI.
+     */
     public JPanel displayInterval(){
         String[] columnNames = {"Time","Message"};
         table = new JTable(set.prepareForTable(),columnNames){
@@ -56,6 +72,10 @@ public class SetView {
         return displayPanel;
     }
 
+    /**
+     * Creates side panel with buttons
+     * @return JPanel with GUI
+     */
     public JPanel createSidePanel(){
         JPanel sidePanel = new JPanel(new GridLayout(8,1,2,2));
 
@@ -90,6 +110,10 @@ public class SetView {
         return sidePanel;
     }
 
+    /**
+     * Creats JFormattedTextFields for user input.
+     * @return JPanel with GUI.
+     */
     public JPanel createInputFields(){
         JPanel inputPanel = new JPanel(new GridLayout(2,1,2,2));
 
@@ -99,28 +123,6 @@ public class SetView {
         namePanel.setLayout(new BoxLayout(namePanel, BoxLayout.X_AXIS));
         namePanel.add(setName);
         namePanel.add(nameField);
-        //////////////////////////////////////////////////////
-        JPanel options = new JPanel();
-        options.setLayout(new BoxLayout(options, BoxLayout.X_AXIS));
-        JCheckBox closeToEnd = new JCheckBox("Change color");
-        JTextField toEnd = new JTextField(2);
-        JLabel before = new JLabel("before end.   ");
-        options.add(closeToEnd);
-        options.add(toEnd);
-        options.add(before);
-
-        JPanel repeat = new JPanel();
-        repeat.setLayout(new BoxLayout(repeat,BoxLayout.X_AXIS));
-        JRadioButton bySet = new JRadioButton("Set");
-        JRadioButton byPosition = new JRadioButton("Position");
-        JLabel repeats = new JLabel("Repeat by");
-        repeat.add(repeats);
-        repeat.add(bySet);
-        repeat.add(byPosition);
-        ///////////////////////////////////////////////////////////
-        JPanel mid = new JPanel(new GridLayout(1,2,2,2));
-        mid.add(options);
-        mid.add(repeat);
 
         timeField = new JFormattedTextField(createFormatter("##:##"));
         timeField.setColumns(3);
@@ -140,12 +142,16 @@ public class SetView {
         fieldPanel.add(messageField);
 
         inputPanel.add(namePanel);
-        //inputPanel.add(mid);
         inputPanel.add(fieldPanel);
 
         return inputPanel;
     }
 
+    /**
+     * Formatter for JFormattedTextFields, for formatting input to time format.
+     * @param s String with pattern for formatting
+     * @return Formatter object
+     */
     public MaskFormatter createFormatter(String s){
         MaskFormatter formatter = null;
         try{
@@ -157,6 +163,9 @@ public class SetView {
         return formatter;
     }
 
+    /**
+     *  refresh GUI
+     */
     public void refreshTable(){
         userInterface.installPanel(getView());
 
@@ -171,6 +180,9 @@ public class SetView {
         return false;
     }
 
+    /**
+     * ActionListener for Add button, it add a position(time, message) to Set, and display it on Table
+     */
     public class AddListener implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
@@ -182,6 +194,9 @@ public class SetView {
         }
     }
 
+    /**
+     * ActionListener for Lunch button, starts countdown process for particular Set
+     */
     private class StartListener implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
@@ -189,6 +204,9 @@ public class SetView {
         }
     }
 
+    /**
+     * ActionListener for Delete button, remove position from Set and table
+     */
     private class DeleteListener implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
@@ -199,6 +217,9 @@ public class SetView {
         }
     }
 
+    /**
+     * Action Listener for Edit button,it enter changes in position, from usr input fields to selected position
+     */
     private class EditListener implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
@@ -209,6 +230,9 @@ public class SetView {
         }
     }
 
+    /**
+     *  Move selected position by one index up in list, or on the end if it was on first position
+     */
     private class UpArrowListener implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
@@ -218,6 +242,9 @@ public class SetView {
         }
     }
 
+    /**
+     * Move selected position by one index down in list, or on the beginning if it was on last position
+     */
     private class DownArrowListener implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
@@ -227,6 +254,9 @@ public class SetView {
         }
     }
 
+    /**
+     * Approve prepared Set to sets list, and display main GUI
+     */
     private class OKListener implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {

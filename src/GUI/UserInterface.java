@@ -9,19 +9,33 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.*;
 
+/**
+ * Provide main GUI, with JTable of all Sets available.
+ */
 public class UserInterface{
     private JFrame frame;
     private Library library;
     private JPanel mainPanel;
     private JTable table;
 
+    /**
+     * constructor without parameters, however it declares Library object
+     */
     public UserInterface(){
         library = new Library();
 
     }
+
+    /**
+     * @return UserInterfaces Library object
+     */
     public Library getLibrary(){
         return library;
     }
+
+    /**
+     * create and display GUI
+     */
     public void show(){
         frame = new JFrame("Interval Creator");
 
@@ -32,6 +46,11 @@ public class UserInterface{
         frame.setSize(350,250);
         frame.setVisible(true);
     }
+
+    /**
+     * creates JPanel with JTable and JButton. This part is replaced if change view for SetView
+     * @return JPanel with GUI
+     */
     public JPanel getView(){
         JPanel panel = new JPanel(new BorderLayout());
         panel.add(BorderLayout.CENTER, createTable());
@@ -39,6 +58,10 @@ public class UserInterface{
         return panel;
     }
 
+    /**
+     * creates buttons
+     * @return JPanel with buttons
+     */
     public JPanel createButtons(){
         JPanel buttonsPanel = new JPanel(new GridLayout(8,1,3,3));
 
@@ -67,6 +90,10 @@ public class UserInterface{
         return buttonsPanel;
     }
 
+    /**
+     * Creates JTable with Sets list.
+     * @return JScrollPane with JTable
+     */
     public JScrollPane createTable(){
         String[] columnNames = {"Name","Steps","Duration"};
         table = new JTable(library.extractDataForTable(),columnNames){
@@ -82,6 +109,10 @@ public class UserInterface{
         return scrollPane;
     }
 
+    /**
+     * Display a SetView.
+     * @param panel to add to frame
+     */
     public void installPanel(JPanel panel){
         frame.setVisible(false);
         frame.remove(mainPanel);
@@ -91,16 +122,26 @@ public class UserInterface{
         frame.setVisible(true);
     }
 
+    /**
+     * Method for dealing with FileNotFoundException;
+     * @param ex cached exception
+     */
     public void fileNotFound(Exception ex){
         ex.printStackTrace();
         JOptionPane.showMessageDialog(frame,"File not found","Error",JOptionPane.ERROR_MESSAGE);
     }
 
+    /**
+     * method checks if any row is selected.
+     * @return boolean, true if yes.
+     */
     public boolean rowIsNotSelected(){
         return table.getSelectedRow()==-1;
     }
 
-
+    /**
+     * New button ActionListener, open SetView and creates new Set object
+     */
     private class NewListener implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e){
@@ -109,6 +150,9 @@ public class UserInterface{
         }
     }
 
+    /**
+     * Lunch button ActionListener, lunch countdown process of selected Set.
+     */
     private class LunchListener implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
@@ -117,6 +161,9 @@ public class UserInterface{
         }
     }
 
+    /**
+     * Edit button Action Listener, open SetView for already created Set object.
+     */
     private class EditListener implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
@@ -127,6 +174,9 @@ public class UserInterface{
         }
     }
 
+    /**
+     * Delete button Action Listener, remove Set form list delete reference to Set object.
+     */
     private class DeleteListener implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
@@ -136,6 +186,9 @@ public class UserInterface{
         }
     }
 
+    /**
+     * Save button Action Listener, save Sets list to chosen file
+     */
     private class SaveListener implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
@@ -157,6 +210,9 @@ public class UserInterface{
         }
     }
 
+    /**
+     * Load button Action Listener, load chosen file
+     */
     private class LoadListener implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
@@ -178,5 +234,4 @@ public class UserInterface{
             installPanel(getView());
         }
     }
-
 }

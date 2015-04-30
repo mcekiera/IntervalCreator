@@ -4,9 +4,17 @@ import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
 import java.io.File;
 
-public class Signal implements Runnable{
+/**
+ * Is responsible for calling sounds.
+ */
+public class Signal{
     File file;
 
+    /**
+     * It gives value to file class field, according to received Sounds parameter
+     * @param sounds enum argument used to choose sound
+     * @return this, it allows to chaining methods
+     */
     public Signal getSound(Sounds sounds){
          switch (sounds){
              case FINISH:
@@ -19,7 +27,9 @@ public class Signal implements Runnable{
         return this;
     }
 
-    @Override
+    /**
+     * It make sounds.
+     */
     public void run() {
         try
         {

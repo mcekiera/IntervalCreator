@@ -132,7 +132,10 @@ public class CountdownFrame{
         setIndex = (setIndex < set.getSchedule().size()) ? ++setIndex : setIndex;
     }
 
-
+    /**
+     * It is a inner class for ActionListener of Timer object. It initialize countdown, couse modification of time
+     * value, display proper information, and initialize sound in proper moment.
+     */
     private class TimerListener implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e){

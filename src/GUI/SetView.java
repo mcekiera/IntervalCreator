@@ -1,3 +1,6 @@
+/**
+ * Pakage with GUI and control
+ */
 package GUI;
 
 import Interval.Set;

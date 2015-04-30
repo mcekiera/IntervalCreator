@@ -1,3 +1,7 @@
+/**
+ * Package with tests
+ */
+
 package Test;
 
 import Interval.Countdown;

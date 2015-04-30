@@ -1,3 +1,6 @@
+/**
+ * Package with program logic
+ */
 package Interval;
 
 /**
@@ -64,6 +67,10 @@ public class Countdown{
         return minutes == -1 && seconds == 59;
     }
 
+    /**
+     * Provide information if countdown is finished
+     * @return true if finished
+     */
     public boolean isZero(){
         return minutes == 0 && seconds == 0;
     }

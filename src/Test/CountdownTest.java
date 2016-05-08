@@ -5,17 +5,15 @@
 package Test;
 
 import Interval.Countdown;
-import junit.framework.Assert;
 import org.junit.Test;
 
-import static junit.framework.Assert.assertEquals;
-import static junit.framework.Assert.assertFalse;
-import static junit.framework.Assert.assertTrue;
+import static org.junit.Assert.*;
+
 
 public class CountdownTest{
     @Test
     public void parser_valid(){
-        Assert.assertEquals("00:00", new Countdown("0:00", null).toReadableString());
+        assertEquals("00:00", new Countdown("0:00", null).toReadableString());
         assertEquals( "10:15", new Countdown( "10:15", null ).toReadableString() );
     }
 

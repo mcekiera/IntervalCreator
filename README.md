@@ -10,4 +10,4 @@ It provides basic functionality:
 
 <i>My third project and first one with javadoc comments, junit tests and attempt to use MVC design.  
 Nothing fancy or complicated. Code is still ugly, but I think is better than in Calculator and SimpleNote, 
-with clear devision of tasks, quite cleare (I hope) class and methods naming, etc.</i> 
+with clear devision of tasks, quite clear (I hope so) class and methods naming, etc.</i> 

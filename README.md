@@ -8,15 +8,19 @@ It provides basic functionality:
 - seting time and message of countdown,
 - sound on finish and rutines transition,
  
+<i>My third project and first one with javadoc comments, junit tests and attempt to use MVC design.  
+Nothing fancy or complicated. Code is still ugly, but I think is better than in Calculator and SimpleNote, 
+with clear devision of tasks, quite clear (I hope so) class and methods naming, etc.</i> 
+ 
 <b><b>Instruction:</b>
-<br>Creating new rutine set rutine:</b>
-<br>1) Click NEW in main menu,
-<br>2) Fill:
-<br>* Set name: name of whole rutine set,
-<br>* time: time of particular task,
-<br>* Message: text message displayed during countdown
-<br>3) Click ADD,
-<br>4) Click OK or LUNCH to try out.
+<br>1.Creating new rutine set rutine:</b>
+<br>    1.1. Click NEW in main menu,
+<br>    1.2. Fill:
+<br>        1.2.1. Set name: name of whole rutine set,
+<br>        1.2.2. time: time of particular task,
+<br>        1.2.3. Message: text message displayed during countdown
+<br>    1.3. Click ADD,
+<br>    1.4. Click OK or LUNCH to try out.
 
 <br><b>Edit rutine:</b>
 <br>1) Choose rutine set,
@@ -42,6 +46,4 @@ It provides basic functionality:
 <br>2) Choose file from directory, and confirm
 
 
-<i>My third project and first one with javadoc comments, junit tests and attempt to use MVC design.  
-Nothing fancy or complicated. Code is still ugly, but I think is better than in Calculator and SimpleNote, 
-with clear devision of tasks, quite clear (I hope so) class and methods naming, etc.</i> 
+

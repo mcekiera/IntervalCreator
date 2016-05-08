@@ -15,12 +15,12 @@ with clear devision of tasks, quite clear (I hope so) class and methods naming, 
 <b><b>Instruction:</b>
 <br>1.Creating new rutine set rutine:</b>
 <br>&nbsp;&nbsp;&nbsp;&nbsp;1.1. Click NEW in main menu,
-<br>    1.2. Fill:
-<br>        1.2.1. Set name: name of whole rutine set,
-<br>        1.2.2. time: time of particular task,
-<br>        1.2.3. Message: text message displayed during countdown
-<br>    1.3. Click ADD,
-<br>    1.4. Click OK or LUNCH to try out.
+<br>&nbsp;&nbsp;&nbsp;&nbsp;1.2. Fill:
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1.2.1. Set name: name of whole rutine set,
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1.2.2. time: time of particular task,
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1.2.3. Message: text message displayed during countdown
+<br>&nbsp;&nbsp;&nbsp;&nbsp;1.3. Click ADD,
+<br>&nbsp;&nbsp;&nbsp;&nbsp;1.4. Click OK or LUNCH to try out.
 
 <br><b>Edit rutine:</b>
 <br>1) Choose rutine set,

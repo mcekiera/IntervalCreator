@@ -14,7 +14,7 @@ with clear devision of tasks, quite clear (I hope so) class and methods naming, 
  
 <b><b>Instruction:</b>
 <br>1.Creating new rutine set rutine:</b>
-<br>    1.1. Click NEW in main menu,
+<br>&nbsp;&nbsp;&nbsp;&nbsp;1.1. Click NEW in main menu,
 <br>    1.2. Fill:
 <br>        1.2.1. Set name: name of whole rutine set,
 <br>        1.2.2. time: time of particular task,

@@ -12,11 +12,11 @@ It provides basic functionality:
 <br>Creating new rutine set rutine:</b>
 <br>1) Click NEW in main menu,
 <br>2) Fill:
-- Set name: name of whole rutine set,
-- time: time of particular task,
-- Message: text message displayed during countdown
-<br>2) Click ADD,
-<br>3) Click OK or LUNCH to try out.
+<br>* Set name: name of whole rutine set,
+<br>* time: time of particular task,
+<br>* Message: text message displayed during countdown
+<br>3) Click ADD,
+<br>4) Click OK or LUNCH to try out.
 
 <br><b>Edit rutine:</b>
 <br>1) Choose rutine set,

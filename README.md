@@ -22,28 +22,28 @@ with clear devision of tasks, quite clear (I hope so) class and methods naming, 
 <br>&nbsp;&nbsp;&nbsp;&nbsp;1.3. Click ADD,
 <br>&nbsp;&nbsp;&nbsp;&nbsp;1.4. Click OK or LUNCH to try out.
 
-<br><b>Edit rutine:</b>
-<br>1) Choose rutine set,
-<br>2) Click EDIT,
-<br>3) Fill Set name, time and Message fields,
-<br>4) Clisk EDIT,
+<br><b>2. Edit rutine:</b>
+<br>&nbsp;&nbsp;&nbsp;&nbsp;2.1. Choose rutine set,
+<br>&nbsp;&nbsp;&nbsp;&nbsp;2.2. Click EDIT,
+<br>&nbsp;&nbsp;&nbsp;&nbsp;2.3.  Fill Set name, time and Message fields,
+<br>&nbsp;&nbsp;&nbsp;&nbsp;2.4.  Clisk EDIT,
 
-<br><b>Lunching rutine</b>
-<br>1) Choose rutine from table,
-<br>2) Click LUNCH
+<br><b>3. Lunching rutine</b>
+<br>&nbsp;&nbsp;&nbsp;&nbsp;3.1.  Choose rutine from table,
+<br>&nbsp;&nbsp;&nbsp;&nbsp;3.2.  Click LUNCH
 
-<br><b>Removing rutine or rutine set:</b>
-<br>1) Choose rutine or rutine set from table,
-<br>2) Click DEL,
+<br><b>4. Removing rutine or rutine set:</b>
+<br>&nbsp;&nbsp;&nbsp;&nbsp;4.1.  Choose rutine or rutine set from table,
+<br>&nbsp;&nbsp;&nbsp;&nbsp;4.2.  Click DEL,
 
-<br><b>Changing rutine order within rutine set:</b>
-<br>1) Choose rutine set and click EDIT,
-<br>2) Choose rutine from table,
-<br>3) Use arrow buttons to change order.
+<br><b>5. Changing rutine order within rutine set:</b>
+<br>&nbsp;&nbsp;&nbsp;&nbsp;5.1.  Choose rutine set and click EDIT,
+<br>&nbsp;&nbsp;&nbsp;&nbsp;5.2.  Choose rutine from table,
+<br>&nbsp;&nbsp;&nbsp;&nbsp;5.3.  Use arrow buttons to change order.
 
-<br><b>Saving and loading of rutine set:</b>
-<br>1) Use proper button in main menu,
-<br>2) Choose file from directory, and confirm
+<br><b>6. Saving and loading of rutine set:</b>
+<br>&nbsp;&nbsp;&nbsp;&nbsp;6.1.  Use proper button in main menu,
+<br>&nbsp;&nbsp;&nbsp;&nbsp;6.2.  Choose file from directory, and confirm
 
 
 
